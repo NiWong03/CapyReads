@@ -1,0 +1,40 @@
+.manga-rows {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 20px;
+}
+
+.manga-rows > * {
+  flex: 0 0 calc(20% - 20px);  /* This will create 5 cards per row */
+  max-width: calc(20% - 20px);
+}
+
+@media (max-width: 1200px) {
+  .manga-rows > * {
+    flex: 0 0 calc(25% - 20px);  /* 4 cards per row */
+    max-width: calc(25% - 20px);
+  }
+}
+
+@media (max-width: 992px) {
+  .manga-rows > * {
+    flex: 0 0 calc(33.333% - 20px);  /* 3 cards per row */
+    max-width: calc(33.333% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .manga-rows > * {
+    flex: 0 0 calc(50% - 20px);  /* 2 cards per row */
+    max-width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .manga-rows > * {
+    flex: 0 0 100%;  /* 1 card per row */
+    max-width: 100%;
+  }
+}

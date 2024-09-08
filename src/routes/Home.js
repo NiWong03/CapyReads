@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import MainContent from '../components/MainContent';
-import {useState, useEffect} from 'react';
-
+import Card from '../components/Card';
+import '..//css/home.css';  // Add this import
 
 function Home() {
   const [search, SetSearch] = useState("");
@@ -69,20 +69,11 @@ function Home() {
         search={search}
         SetSearch={SetSearch}
       />
-      <ul className="manga-list">
+      <div className="manga-rows">
         {mangaList.map(manga => (
-          <li key={manga.id}>
-            {manga.coverFileName && (
-              <img 
-                src={`https://uploads.mangadex.org/covers/${manga.id}/${manga.coverFileName}.128.jpg`}
-                alt={manga.attributes.title.en}
-                onError={(e) => { e.target.onerror = null; e.target.src = "path/to/alternative/image.jpg"; }}
-              />
-            )}
-            <h3>{manga.attributes.title.en}</h3>
-          </li>
+          <Card key={manga.id} manga={manga} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
