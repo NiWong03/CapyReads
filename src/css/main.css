@@ -11,13 +11,6 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.home-text {
-  padding: 16px 16px;
-  background-color: #1a0940; /* Matching header background */
-  border-radius: 16px;
-  color: #ffffff; /* White text for better contrast */
-}
-
 .search-box input {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -72,3 +65,16 @@ body {
   .manga-card:hover h3 {
     color: #00aeff; /* Bright blue on hover */
   }
+
+.home-text-container {
+  margin-left: 16px;
+}
+
+.home-text {
+  padding: 8px 16px;
+  background-color: #1a0940;
+  border-radius: 16px;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
+}

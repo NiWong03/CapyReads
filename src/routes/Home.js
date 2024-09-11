@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import MainContent from '../components/MainContent';
 import Card from '../components/Card';
 import Navbar from '../components/Navbar';
 import '../css/home.css';
@@ -57,22 +56,18 @@ function Home() {
     }));
   };
 
-  const HandleSearch = e =>{
-		e.preventDefault();
-		searchManga(search);
-	}
+  const HandleSearch = e => {
+    e.preventDefault();
+    searchManga(search);
+  }
 
   return (
     <div className="home">
-      <Navbar />
-      <header className="home-header">
-        <h1>Home</h1>
-        <MainContent
-          HandleSearch={HandleSearch}
-          search={search}
-          SetSearch={SetSearch}
-        />
-      </header>
+      <Navbar
+        HandleSearch={HandleSearch}
+        search={search}
+        SetSearch={SetSearch}
+      />
       <div className="manga-rows">
         {mangaList.map(manga => (
           <Card key={manga.id} manga={manga} />
