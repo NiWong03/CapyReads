@@ -1,5 +1,5 @@
 body {
-  background-color: #444b54; /* Slate background color for the entire page */
+  background-color: #1f1f1f; /* Dark background color matching 9anime's theme */
 }
 
 .header {
@@ -7,57 +7,68 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-  background-color: #a4b0be; /* Lighter slate for header background */
+  background-color: #1a0940; /* Slightly lighter purple for header background */
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .home-text {
   padding: 16px 16px;
-  background-color: #8c9cb0; /* Slightly darker slate for the banner */
+  background-color: #1a0940; /* Matching header background */
   border-radius: 16px;
-  color: #a53434; /* White text for better contrast */
-}
-
-.search-box {
-  display: flex;
-  justify-content: flex-end;
-  flex: 1 1 0%;
-  margin-left: 20px;
+  color: #ffffff; /* White text for better contrast */
 }
 
 .search-box input {
-    -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
-    background: none;
-    border: 4px solid black; /* Restored black border */
-    outline: none;
-    display: block;
-    width: 100%;
-    max-width: 400px;
-    padding: 16px 16px;
-    border-radius: 999px;
-    background-color: #EEE;
-    transition: 0.4s;
-  }
-  .search-box input::placeholder {
-    color: #888;
-  }
-  .search-box input:focus, .search-box input:valid {
-    background-color: #313131;
-    color: #FFF;
-    border-color: #FFF;
-  }
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: none;
+  border: 4px solid #3a1b6e ; /* Restored black border */
+  outline: none;
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  padding: 16px 16px;
+  border-radius: 999px;
+  background-color: #EEE;
+  transition: 0.4s;
+}
 
-  .manga-card img { 
-    border: 8px solid #a0a0a0; /* Grey border for image covers */
+.search-box input::placeholder {
+  color: #888;
+}
+.search-box input:focus, .search-box input:valid {
+  background-color: #3a1b6e ;
+  color: #FFF;
+  border-color: #FFF;
+}
+  .manga-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  
+  .manga-card:hover img {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 174, 255, 0.3); /* Blue glow on hover */
+    border-color: #00aeff; /* Blue border on hover */
+  }
+  
+  .manga-card img {
+    border: 3px solid #2a1155;
     border-radius: 8px;
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Initial subtle shadow */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .manga-card h3 {
+    margin-top: 10px;
+    text-align: center;
+    transition: color 0.3s ease;
+    color: #ffffff; /* White text */
   }
 
-  .manga-card img:hover {
-    transform: translateY(-5px); /* Slight lift effect */
-    box-shadow: 5px 10px 20px rgba(173, 239, 30, 0.3); /* Stronger shadow on hover */
-    border-color: #808080; /* Darker border on hover */
+  .manga-card:hover h3 {
+    color: #00aeff; /* Bright blue on hover */
   }
