@@ -13,7 +13,7 @@ function Home() {
 
   const fetchTopManga = async () => {
     try {
-      const res = await fetch(`https://api.mangadex.org/manga?order[rating]=desc&limit=10`);
+      const res = await fetch(`https://api.mangadex.org/manga?order[rating]=desc&limit=20`);
       const resData = await res.json();
       const mangaWithCovers = await fetchCovers(resData.data);
       setMangaList(mangaWithCovers);
@@ -24,7 +24,7 @@ function Home() {
 
   const searchManga = async (query) => {
     try {
-      const res = await fetch(`https://api.mangadex.org/manga?title=${query}&limit=10`);
+      const res = await fetch(`https://api.mangadex.org/manga?title=${query}&limit=20`);
       const resData = await res.json();
       
       if (resData.data.length === 0) {

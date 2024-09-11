@@ -66,3 +66,34 @@
       height: 135vw; /* Maintains 2:3 aspect ratio */
     }
   }
+
+  .chapter-select {
+    margin-bottom: 20px;
+  }
+
+  .chapter-select select {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid #ffffff; 
+    border-radius: 20px;
+    background-color: #2a0a5e;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  .chapter-select select:focus {
+    outline: none;
+    border-color: #ffffff; /* Light green border on focus, you can change this if you prefer */
+  }
+
+  /* Optional: Style for dropdown arrow */
+  .chapter-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 98%;
+    background-position-y: 50%;
+  }

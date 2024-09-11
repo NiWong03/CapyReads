@@ -5,7 +5,8 @@ import '../css/MangaContent.css';
 function MangaDetail() {
   const { id } = useParams();
   const [manga, setManga] = useState(null);
-  const [chapter, setChapter] = useState(null);
+  const [chapters, setChapters] = useState([]);
+  const [selectedChapter, setSelectedChapter] = useState(null);
   const [pages, setPages] = useState([]);
   const [showDescription, setShowDescription] = useState(false);
 
@@ -13,18 +14,26 @@ function MangaDetail() {
     fetchMangaDetails();
   }, [id]);
 
+  useEffect(() => {
+    if (selectedChapter) {
+      fetchChapterPages(selectedChapter.id);
+    }
+  }, [selectedChapter]);
+
   const fetchMangaDetails = async () => {
     try {
       const mangaRes = await fetch(`https://api.mangadex.org/manga/${id}`);
       const mangaData = await mangaRes.json();
       setManga(mangaData.data);
 
-      // Fetch first English chapter
-      const chaptersRes = await fetch(`https://api.mangadex.org/manga/${id}/feed?translatedLanguage[]=en&order[chapter]=asc&limit=1`);
+      // Fetch all chapters
+      const chaptersRes = await fetch(`https://api.mangadex.org/manga/${id}/feed?translatedLanguage[]=en&order[chapter]=asc&limit=500`);
       const chaptersData = await chaptersRes.json();
+      setChapters(chaptersData.data);
+
+      // Set the first chapter as selected
       if (chaptersData.data.length > 0) {
-        setChapter(chaptersData.data[0]);
-        fetchChapterPages(chaptersData.data[0].id);
+        setSelectedChapter(chaptersData.data[0]);
       }
     } catch (error) {
       console.error("Error fetching manga details:", error);
@@ -48,7 +57,12 @@ function MangaDetail() {
     }
   };
 
-  if (!manga || !chapter) return <div>Loading...</div>;
+  const handleChapterChange = (e) => {
+    const chapter = chapters.find(c => c.id === e.target.value);
+    setSelectedChapter(chapter);
+  };
+
+  if (!manga || !selectedChapter) return <div>Loading...</div>;
 
   return (
     <div className="manga-detail">
@@ -66,7 +80,17 @@ function MangaDetail() {
         </div>
       )}
       
-      <h2>Chapter {chapter.attributes.chapter}: {chapter.attributes.title}</h2>
+      <div className="chapter-select">
+        <select value={selectedChapter.id} onChange={handleChapterChange}>
+          {chapters.map((chapter) => (
+            <option key={chapter.id} value={chapter.id}>
+              Chapter {chapter.attributes.chapter}: {chapter.attributes.title}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <h2>Chapter {selectedChapter.attributes.chapter}: {selectedChapter.attributes.title}</h2>
       <div className="chapter-pages">
         {pages.map((pageUrl, index) => (
           <div key={index} className="page-container">
