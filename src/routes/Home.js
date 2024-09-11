@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MainContent from '../components/MainContent';
 import Card from '../components/Card';
+import Navbar from '../components/Navbar';
 import '../css/home.css';
 
 function Home() {
@@ -63,6 +64,7 @@ function Home() {
 
   return (
     <div className="home">
+      <Navbar />
       <header className="home-header">
         <h1>Home</h1>
         <MainContent

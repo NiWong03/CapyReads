@@ -41,8 +41,8 @@
 
 .home-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   padding: 16px;
   background-color: #1a0940; /* Adjust this color if needed */
 }
@@ -51,6 +51,7 @@
   margin: 0;
   color: #ffffff;
   white-space: nowrap; /* Prevent the title from wrapping */
+  margin-bottom: 16px;
 }
 
 /* Adjust the MainContent component layout */
@@ -80,4 +81,9 @@
   display: flex;
   align-items: center;
   width: 100%; /* Take full width of its container */
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
 }
