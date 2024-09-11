@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';  // Add this import
 import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, Box, Grid, InputBase } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,13 +14,27 @@ function Navbar({ HandleSearch, search, SetSearch }) {
     setDrawerOpen(open);
   };
 
-  const menuItems = ['Home','Github', 'About', 'Recently Added'];
-
+  const menuItems = [
+    { text: 'Home', link: '/' },
+    { text: 'Github', link: 'https://github.com/NiWong03/MangadexReact' },
+    { text: 'About', link: '/about' },
+    { text: 'Recently Added', link: '/recently-added' }
+  ];
+  
   const list = () => (
     <List>
-      {menuItems.map((text) => (
-        <ListItem button key={text} onClick={toggleDrawer(false)}>
-          <ListItemText primary={text} />
+      {menuItems.map((item) => (
+        <ListItem 
+          button 
+          key={item.text} 
+          onClick={toggleDrawer(false)} 
+          component={item.text === 'Github' ? 'a' : Link}
+          to={item.text !== 'Github' ? item.link : undefined}
+          href={item.text === 'Github' ? item.link : undefined}
+          target={item.text === 'Github' ? '_blank' : undefined}
+          rel={item.text === 'Github' ? 'noopener noreferrer' : undefined}
+        >
+          <ListItemText primary={item.text} />
         </ListItem>
       ))}
     </List>
