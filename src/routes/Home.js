@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MainContent from '../components/MainContent';
 import Card from '../components/Card';
-import '..//css/home.css';  // Add this import
+import '../css/home.css';
 
 function Home() {
   const [search, SetSearch] = useState("");
@@ -63,12 +63,14 @@ function Home() {
 
   return (
     <div className="home">
-      <h1>Home</h1>
-      <MainContent
-        HandleSearch={HandleSearch}
-        search={search}
-        SetSearch={SetSearch}
-      />
+      <header className="home-header">
+        <h1>Home</h1>
+        <MainContent
+          HandleSearch={HandleSearch}
+          search={search}
+          SetSearch={SetSearch}
+        />
+      </header>
       <div className="manga-rows">
         {mangaList.map(manga => (
           <Card key={manga.id} manga={manga} />
