@@ -7,6 +7,7 @@ function MangaDetail() {
   const [manga, setManga] = useState(null);
   const [chapter, setChapter] = useState(null);
   const [pages, setPages] = useState([]);
+  const [showDescription, setShowDescription] = useState(false);
 
   useEffect(() => {
     fetchMangaDetails();
@@ -52,7 +53,19 @@ function MangaDetail() {
   return (
     <div className="manga-detail">
       <h1>{manga.attributes.title.en}</h1>
-      {manga.attributes.description && <p>{manga.attributes.description.en}</p>}
+      
+      {manga.attributes.description && (
+        <div className="description-container">
+          <button 
+            className="description-toggle"
+            onClick={() => setShowDescription(!showDescription)}
+          >
+            {showDescription ? 'Hide Description' : 'Show Description'}
+          </button>
+          {showDescription && <p className="manga-description">{manga.attributes.description.en}</p>}
+        </div>
+      )}
+      
       <h2>Chapter {chapter.attributes.chapter}: {chapter.attributes.title}</h2>
       <div className="chapter-pages">
         {pages.map((pageUrl, index) => (

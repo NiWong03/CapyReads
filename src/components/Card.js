@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import kawhi from '../image404/kawhi.jpg';
+import Wombat from '../images/Wombat.jpg';
 
 function Card({ manga }) {
   return (
@@ -11,7 +11,7 @@ function Card({ manga }) {
           alt={`Cover for ${manga.attributes.title.en}`}
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src = kawhi;
+            e.target.src = Wombat;
           }}
           width="128"
           height="128"
