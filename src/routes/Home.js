@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import '../css/home.css';
+import '../css/main.css'
 
 function Home() {
   const [search, SetSearch] = useState("");
   const [mangaList, setMangaList] = useState([]);
 
+
   useEffect(() => {
     fetchTopManga();
   }, []);
+
+
 
   const fetchTopManga = async () => {
     try {
@@ -39,6 +43,8 @@ function Home() {
     }
   };
 
+
+
   const fetchCovers = async (mangaList) => {
     return Promise.all(mangaList.map(async (manga) => {
       try {
@@ -56,10 +62,19 @@ function Home() {
   };
 
 
+
+
+
   return (
       <div className="manga-rows">
-        {mangaList.map(manga => (
-          <Card key={manga.id} manga={manga} />
+        {mangaList.map((manga) => (
+          <Card 
+            key={manga.id} 
+            manga={manga}
+            style={{
+              transition: 'opacity 0.5s ease-out, transform 0.5s ease-out'
+            }}
+          />
         ))}
       </div>
   );

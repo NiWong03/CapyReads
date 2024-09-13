@@ -84,10 +84,10 @@
 
   .chapter-select select:focus {
     outline: none;
-    border-color: #ffffff; /* Light green border on focus, you can change this if you prefer */
+    border-color: #ffffff; 
   }
 
-  /* Optional: Style for dropdown arrow */
+  
   .chapter-select select {
     appearance: none;
     -webkit-appearance: none;
