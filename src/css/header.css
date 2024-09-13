@@ -1,0 +1,60 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background-color: #1a0940; /* Slightly lighter purple for header background */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .search-box input {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    background: none;
+    border: 4px solid #3a1b6e ; /* Restored black border */
+    outline: none;
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    padding: 16px 16px;
+    border-radius: 999px;
+    background-color: #EEE;
+    transition: 0.4s;
+  }
+  
+  .search-box input::placeholder {
+    color: #888;
+  }
+  .search-box input:focus, .search-box input:valid {
+    background-color: #3a1b6e ;
+    color: #FFF;
+    border-color: #FFF;
+  }
+  
+.home-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    background-color: #1a0940; /* Adjust this color if needed */
+}
+
+.home-header .search-box {
+    width: 100%; 
+max-width: 800px; 
+}
+
+.home-header .search-box input {
+    width: 100%;
+    padding: 8px 16px; /* Add some padding to make the input larger */
+    font-size: 16px; /* Increase font size for better visibility */
+}
+
+/* If the search form is causing issues, ensure it doesn't add extra space */
+.home-header .main-content form {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    width: 100%; /* Take full width of its container */
+}

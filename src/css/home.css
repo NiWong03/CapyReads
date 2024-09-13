@@ -1,73 +1,29 @@
 .manga-rows {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
+  gap: 15px;
   padding: 20px;
+  max-width: 1200px; /* Adjust this value as needed */
+  margin: 0 auto;
 }
 
-.manga-rows > * {
-  flex: 0 0 calc(20% - 20px);  /* This will create 5 cards per row */
-  max-width: calc(20% - 20px);
-}
-
+/* Responsive adjustments */
 @media (max-width: 1200px) {
-  .manga-rows > * {
-    flex: 0 0 calc(25% - 20px);  /* 4 cards per row */
-    max-width: calc(25% - 20px);
+  .manga-rows {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-@media (max-width: 992px) {
-  .manga-rows > * {
-    flex: 0 0 calc(33.333% - 20px);  /* 3 cards per row */
-    max-width: calc(33.333% - 20px);
+@media (max-width: 900px) {
+  .manga-rows {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 768px) {
-  .manga-rows > * {
-    flex: 0 0 calc(50% - 20px);  /* 2 cards per row */
-    max-width: calc(50% - 20px);
+@media (max-width: 600px) {
+  .manga-rows {
+    grid-template-columns: repeat(2, 1fr);
   }
-}
-
-@media (max-width: 480px) {
-  .manga-rows > * {
-    flex: 0 0 100%;  /* 1 card per row */
-    max-width: 100%;
-  }
-}
-
-.home-header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 16px;
-  background-color: #1a0940; /* Adjust this color if needed */
-}
-
-
-
-
-
-.home-header .search-box {
-  width: 100%; 
-  max-width: 800px; 
-}
-
-.home-header .search-box input {
-  width: 100%;
-  padding: 8px 16px; /* Add some padding to make the input larger */
-  font-size: 16px; /* Increase font size for better visibility */
-}
-
-/* If the search form is causing issues, ensure it doesn't add extra space */
-.home-header .main-content form {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  width: 100%; /* Take full width of its container */
 }
 
 .home {

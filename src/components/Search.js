@@ -1,41 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import Card from '../components/Card';
-import '../css/home.css';
+import { useLocation } from 'react-router-dom';
+import Card from './Card';
 
-function Home() {
-  const [search, SetSearch] = useState("");
-  const [mangaList, setMangaList] = useState([]);
+function Search() {
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
-    fetchTopManga();
-  }, []);
-
-  const fetchTopManga = async () => {
-    try {
-      const res = await fetch(`https://api.mangadex.org/manga?order[rating]=desc&limit=20`);
-      const resData = await res.json();
-      const mangaWithCovers = await fetchCovers(resData.data);
-      setMangaList(mangaWithCovers);
-    } catch (error) {
-      console.error("Error fetching top manga:", error);
+    const searchQuery = new URLSearchParams(location.search).get('q');
+    if (searchQuery) {
+      searchManga(searchQuery);
     }
-  };
+  }, [location.search]);
 
   const searchManga = async (query) => {
+    setLoading(true);
     try {
       const res = await fetch(`https://api.mangadex.org/manga?title=${query}&limit=20`);
       const resData = await res.json();
       
       if (resData.data.length === 0) {
         console.log('No results found');
-        setMangaList([]);
-        return;
+        setSearchResults([]);
+      } else {
+        const mangaWithCovers = await fetchCovers(resData.data);
+        setSearchResults(mangaWithCovers);
       }
-
-      const mangaWithCovers = await fetchCovers(resData.data);
-      setMangaList(mangaWithCovers);
     } catch (error) {
       console.error("Error searching manga:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,14 +50,17 @@ function Home() {
     }));
   };
 
+  if (loading) return <div>Loading...</div>;
 
   return (
-      <div className="manga-rows">
-        {mangaList.map(manga => (
-          <Card key={manga.id} manga={manga} />
-        ))}
-      </div>
+    <div className="manga-rows">
+      {searchResults.length === 0 ? (
+        <p>No results found</p>
+      ) : (
+        searchResults.map(manga => <Card key={manga.id} manga={manga} />)
+      )}
+    </div>
   );
 }
 
-export default Home;
+export default Search;

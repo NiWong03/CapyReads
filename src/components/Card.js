@@ -1,23 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Wombat from '../images/Wombat.jpg';
+import '../css/main.css';  // Import the main.css styles
+
+// inline styles so no css file needed
 
 function Card({ manga }) {
   return (
     <Link to={`/manga/${manga.id}`} className="manga-card">
-      {manga.coverFileName && (
-        <img 
-          src={`https://uploads.mangadex.org/covers/${manga.id}/${manga.coverFileName}.128.jpg`}
-          alt={`Cover for ${manga.attributes.title.en}`}
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = Wombat;
-          }}
-          width="128"
-          height="128"
-          style={{ objectFit: 'cover' }}
-        />
-      )}
+      <img 
+        src={manga.coverFileName 
+          ? `https://uploads.mangadex.org/covers/${manga.id}/${manga.coverFileName}`
+          : Wombat
+        }
+        alt={`Cover for ${manga.attributes.title.en}`}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = Wombat;
+        }}
+      />
       <h3>{manga.attributes.title.en}</h3>
     </Link>
   );
