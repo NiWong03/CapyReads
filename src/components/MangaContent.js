@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import '../css/MangaContent.css';
 
@@ -8,7 +8,10 @@ function MangaDetail() {
   const [chapters, setChapters] = useState([]);
   const [selectedChapter, setSelectedChapter] = useState(null);
   const [pages, setPages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [showDescription, setShowDescription] = useState(false);
+  const sliderRef = useRef(null);
+  const pageRefs = useRef([]);
 
   useEffect(() => {
     fetchMangaDetails();
@@ -60,7 +63,50 @@ function MangaDetail() {
   const handleChapterChange = (e) => {
     const chapter = chapters.find(c => c.id === e.target.value);
     setSelectedChapter(chapter);
+    setCurrentPage(1);
   };
+
+  const handlePageChange = (newPage) => {
+    const page = Math.max(1, Math.min(newPage, pages.length));
+    setCurrentPage(page);
+    pageRefs.current[page - 1]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleSliderChange = (e) => {
+    handlePageChange(Number(e.target.value));
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const pageIndex = pageRefs.current.findIndex(ref => ref === entry.target);
+            if (pageIndex !== -1) {
+              setCurrentPage(pageIndex + 1);
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    pageRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      pageRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, [pages]);
+
+  useEffect(() => {
+    if (sliderRef.current) {
+      sliderRef.current.value = currentPage;
+    }
+  }, [currentPage]);
 
   if (!manga || !selectedChapter) return <div>Loading...</div>;
 
@@ -93,7 +139,11 @@ function MangaDetail() {
       <h2>Chapter {selectedChapter.attributes.chapter}: {selectedChapter.attributes.title}</h2>
       <div className="chapter-pages">
         {pages.map((pageUrl, index) => (
-          <div key={index} className="page-container">
+          <div 
+            key={index} 
+            className="page-container"
+            ref={el => pageRefs.current[index] = el}
+          >
             <img 
               src={pageUrl}
               alt={`Page ${index + 1}`}
@@ -104,6 +154,35 @@ function MangaDetail() {
             />
           </div>
         ))}
+      </div>
+      
+      <div className="page-navigation">
+        <button 
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span>{currentPage} / {pages.length}</span>
+        <input
+          type="range"
+          min="1"
+          max={pages.length}
+          value={currentPage}
+          onChange={handleSliderChange}
+          ref={sliderRef}
+        />
+        <button 
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === pages.length}
+        >
+          Next
+        </button>
+        <button
+        onClick={() => handlePageChange(1)}
+        >
+          Back to Top
+        </button>
       </div>
     </div>
   );

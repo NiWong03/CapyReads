@@ -42,6 +42,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 60px;
   }
   
   .page-container {
@@ -97,3 +98,116 @@
     background-position-x: 98%;
     background-position-y: 50%;
   }
+
+.page-navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  z-index: 1000;
+}
+
+.page-navigation button {
+  background-color: #2a0a5e;
+  color: white;
+  border: 2px solid #ffffff;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 10px;
+  flex: 0 1 auto;
+}
+
+.page-navigation button:disabled {
+  background-color: white;
+  color: #2a0a5e;
+  border: 2px solid #2a0a5e;
+  cursor: not-allowed;
+}
+
+.page-navigation span {
+  color: white;
+  margin: 5px;
+  flex: 0 1 auto;
+}
+
+.page-navigation input[type="range"] {
+  width: 100%;
+  max-width: 200px;
+  margin: 5px;
+  flex: 1 1 100%;
+}
+
+.page-navigation .page-input-form {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  flex: 0 1 auto;
+}
+
+.page-navigation .page-input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid white;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 5px 0 0 5px;
+}
+
+.page-navigation .go-button {
+  padding: 5px 10px;
+  background-color: #2a0a5e;
+  color: white;
+  border: 1px solid white;
+  border-left: none;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+}
+
+.page-navigation .go-button:hover {
+  background-color: #3a1b6e;
+}
+
+@media (max-width: 600px) {
+  .page-navigation {
+    padding: 5px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .page-navigation button {
+    padding: 3px 6px;
+    font-size: 0.8em;
+    margin: 2px;
+  }
+
+  .page-navigation span {
+    font-size: 0.8em;
+    margin: 2px;
+  }
+
+  .page-navigation input[type="range"] {
+    display: none;
+  }
+
+  .page-navigation .page-input-form {
+    margin: 2px;
+  }
+
+  .page-navigation .page-input {
+    width: 40px;
+    padding: 3px;
+    font-size: 0.8em;
+  }
+
+  .page-navigation .go-button {
+    padding: 3px 6px;
+    font-size: 0.8em;
+  }
+}
