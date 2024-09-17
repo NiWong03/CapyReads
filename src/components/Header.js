@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, Box, Grid, InputBase, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -11,6 +11,7 @@ function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -52,6 +53,19 @@ function Header() {
       ))}
     </List>
   );
+
+  const getHeaderText = () => {
+    switch(location.pathname) {
+      case '/':
+        return 'Home';
+      case '/about':
+        return 'About';
+      case '/recently-added':
+        return 'Recently Added';
+      default:
+        return 'Home';
+    }
+  };
 
   return (
     <AppBar position="static" sx={{ backgroundColor: '#1a0940' }}>
@@ -137,7 +151,7 @@ function Header() {
             </Grid>
             <Grid item>
               <Box component={Link} to="/" sx={{ textDecoration: 'none', color: 'inherit' }}>
-                <div className="home-text">Home</div>
+                <div className="home-text">{getHeaderText()}</div>
               </Box>
             </Grid>
           </Grid>
