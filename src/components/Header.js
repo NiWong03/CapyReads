@@ -68,7 +68,10 @@ function Header() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#1a0940' }}>
+    <AppBar position="static" sx={{ 
+      backgroundColor: 'rgba(19, 30, 49, 0.9)', // Dark blue with slight transparency
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+    }}>
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Grid container alignItems="center" spacing={2}>

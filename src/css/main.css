@@ -2,8 +2,45 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: rgb(34, 34, 34);
-  background-size: 400% 400%;
+  background-image: url('../images/pathh.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Add an overlay to ensure text readability */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  z-index: -1;
+}
+
+/* Ensure content is above the background overlay */
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* If you want to keep the galaxy shift animation, you can apply it to the overlay */
+@keyframes galaxyShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body::before {
   animation: galaxyShift 15s ease infinite;
 }
 
@@ -27,18 +64,6 @@ body {
   }
   100% {
     transform: translateY(0px);
-  }
-}
-
-@keyframes galaxyShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
   }
 }
 
@@ -127,4 +152,86 @@ body::before {
 h1, h2, p {
   color: #ffffff;
   text-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* Add this to your existing CSS */
+
+.manga-card a,
+.manga-card h3 {
+  text-decoration: none;
+  color: #ffffff; /* or whatever color you want for the text */
+}
+
+/* If you're using Material-UI or another library that might be applying styles, you might need to use !important */
+.manga-card a {
+  text-decoration: none !important;
+}
+
+/* If the above doesn't work, try targeting more specifically */
+.manga-rows .manga-card a,
+.manga-rows .manga-card h3 {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* Target all links within manga cards */
+.manga-card a,
+.manga-card a:hover,
+.manga-card a:visited,
+.manga-card a:active,
+.manga-card a:focus {
+  text-decoration: none !important;
+  color: #ffffff !important; /* or any color you prefer */
+}
+
+/* Target all headings within manga cards */
+.manga-card h1,
+.manga-card h2,
+.manga-card h3,
+.manga-card h4,
+.manga-card h5,
+.manga-card h6 {
+  text-decoration: none !important;
+}
+
+/* If you're using Material-UI, also add this */
+.MuiTypography-root.MuiLink-root {
+  text-decoration: none !important;
+}
+
+/* A catch-all rule for any elements with class 'title' or containing 'title' in the class name */
+[class*="title"] {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+/* Target the link containing the title */
+.manga-card a {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+/* Target the h3 title directly */
+.manga-card h3 {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+/* Ensure no underline on hover */
+.manga-card a:hover,
+.manga-card a:hover h3 {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+/* If you're using a specific class for the title, target it directly */
+.manga-title {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+/* A catch-all for any elements with 'title' in the class name */
+[class*="title"] {
+  text-decoration: none !important;
+  border-bottom: none !important;
 }

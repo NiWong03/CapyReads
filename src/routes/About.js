@@ -6,21 +6,22 @@ function About() {
   return (
     <Box
       sx={{
-        backgroundColor: '#1a0940', // Dark purple background to match your theme
+        // backgroundColor: 'grey', // Dark purple background to match your theme
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         color: 'white', // White text for better contrast
-        padding: 4,
+        padding: -4,
       }}
     >
       <Container maxWidth="md">
         <Typography variant="h4" component="h1" gutterBottom align="center">
-          About MangaDex React Reader
+          About MangaReact
         </Typography>
         <Typography variant="body1" paragraph>
-          Welcome to the MangaDex React Reader, a modern web application designed to enhance your manga reading experience. Our app leverages the power of React and the extensive MangaDex API to bring you a seamless, user-friendly interface for discovering and enjoying your favorite manga.
+          Welcome to MangaReact, a modern web application designed to enhance your manga reading experience. 
+          Our app leverages the power of React and the extensive MangaDex API to bring you a seamless, user-friendly interface for discovering and enjoying your favorite manga.
         </Typography>
         <Typography variant="h5" gutterBottom>
           Key Features:
@@ -44,6 +45,10 @@ function About() {
         </Typography>
         <Typography variant="body1">
           For more information, feature requests, or to contribute to the project, please visit our <a href="https://github.com/NiWong03/MangadexReact" target="_blank" rel="noopener noreferrer" style={{color: '#e0d0ff'}}>GitHub repository</a>.
+        </Typography>
+        <Typography variant="body1">
+          This project was created by <a href="https://www.linkedin.com/in/nicholas-wong-110b2b231/" target="_blank" rel="noopener noreferrer" style={{color: '#e0d0ff'}}>Nicholas Wong</a>{' '}
+          and <a href="https://www.linkedin.com/in/debora-choi-759b221a9/" target="_blank" rel="noopener noreferrer" style={{color: '#e0d0ff'}}>Debora Choi</a>.
         </Typography>
       </Container>
     </Box>
