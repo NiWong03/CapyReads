@@ -105,8 +105,6 @@ body::before {
   color: #ffffff; /* White text */
   width: 100%; /* Ensure the title takes full width of the card */
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font-size: 0.9rem; /* Slightly smaller font size */
 }
 
@@ -128,8 +126,6 @@ body::before {
     radial-gradient(#ff00de, rgba(255,0,222,0) 2px),
     radial-gradient(#00fffb, rgba(0,255,251,0) 2px),
     radial-gradient(#ffff00, rgba(255,255,0,0) 2px);
-  background-size: 700px 700px, 500px 500px, 600px 600px, 400px 400px;
-  background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
   animation: twinkle 10s ease-in-out infinite alternate;
 }
 
@@ -142,96 +138,15 @@ body::before {
   }
 }
 
-/* Ensure content is above the background */
+
 .home {
   position: relative;
   z-index: 1;
 }
 
-/* Adjust text colors for better visibility */
+
 h1, h2, p {
   color: #ffffff;
   text-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-/* Add this to your existing CSS */
-
-.manga-card a,
-.manga-card h3 {
-  text-decoration: none;
-  color: #ffffff; /* or whatever color you want for the text */
-}
-
-/* If you're using Material-UI or another library that might be applying styles, you might need to use !important */
-.manga-card a {
-  text-decoration: none !important;
-}
-
-/* If the above doesn't work, try targeting more specifically */
-.manga-rows .manga-card a,
-.manga-rows .manga-card h3 {
-  text-decoration: none;
-  color: #ffffff;
-}
-
-/* Target all links within manga cards */
-.manga-card a,
-.manga-card a:hover,
-.manga-card a:visited,
-.manga-card a:active,
-.manga-card a:focus {
-  text-decoration: none !important;
-  color: #ffffff !important; /* or any color you prefer */
-}
-
-/* Target all headings within manga cards */
-.manga-card h1,
-.manga-card h2,
-.manga-card h3,
-.manga-card h4,
-.manga-card h5,
-.manga-card h6 {
-  text-decoration: none !important;
-}
-
-/* If you're using Material-UI, also add this */
-.MuiTypography-root.MuiLink-root {
-  text-decoration: none !important;
-}
-
-/* A catch-all rule for any elements with class 'title' or containing 'title' in the class name */
-[class*="title"] {
-  text-decoration: none !important;
-  border-bottom: none !important;
-}
-
-/* Target the link containing the title */
-.manga-card a {
-  text-decoration: none !important;
-  color: inherit;
-}
-
-/* Target the h3 title directly */
-.manga-card h3 {
-  text-decoration: none !important;
-  border-bottom: none !important;
-}
-
-/* Ensure no underline on hover */
-.manga-card a:hover,
-.manga-card a:hover h3 {
-  text-decoration: none !important;
-  border-bottom: none !important;
-}
-
-/* If you're using a specific class for the title, target it directly */
-.manga-title {
-  text-decoration: none !important;
-  border-bottom: none !important;
-}
-
-/* A catch-all for any elements with 'title' in the class name */
-[class*="title"] {
-  text-decoration: none !important;
-  border-bottom: none !important;
-}

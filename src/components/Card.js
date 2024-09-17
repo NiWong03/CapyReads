@@ -7,7 +7,7 @@ import '../css/main.css';  // Import the main.css styles
 
 function Card({ manga }) {
   return (
-    <Link to={`/manga/${manga.id}`} className="manga-card">
+    <Link to={`/manga/${manga.id}`} className="manga-card" style={{ textDecoration: 'none' }}>
       <img 
         src={manga.coverFileName 
           ? `https://uploads.mangadex.org/covers/${manga.id}/${manga.coverFileName}`
