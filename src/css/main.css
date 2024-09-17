@@ -2,15 +2,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: linear-gradient(
-    45deg,
-    #1a0033,
-    #000066,
-    #003366,
-    #330033,
-    #1a0066,
-    #000033
-  );
+  background: rgb(34, 34, 34);
   background-size: 400% 400%;
   animation: galaxyShift 15s ease infinite;
 }

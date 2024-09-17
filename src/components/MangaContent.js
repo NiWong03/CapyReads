@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import '../css/MangaContent.css';
 
@@ -13,17 +13,7 @@ function MangaDetail() {
   const sliderRef = useRef(null);
   const pageRefs = useRef([]);
 
-  useEffect(() => {
-    fetchMangaDetails();
-  }, [id]);
-
-  useEffect(() => {
-    if (selectedChapter) {
-      fetchChapterPages(selectedChapter.id);
-    }
-  }, [selectedChapter]);
-
-  const fetchMangaDetails = async () => {
+  const fetchMangaDetails = useCallback(async () => {
     try {
       const mangaRes = await fetch(`https://api.mangadex.org/manga/${id}`);
       const mangaData = await mangaRes.json();
@@ -41,7 +31,17 @@ function MangaDetail() {
     } catch (error) {
       console.error("Error fetching manga details:", error);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchMangaDetails();
+  }, [fetchMangaDetails]);
+
+  useEffect(() => {
+    if (selectedChapter) {
+      fetchChapterPages(selectedChapter.id);
+    }
+  }, [selectedChapter]);
 
   const fetchChapterPages = async (chapterId) => {
     try {
@@ -91,12 +91,14 @@ function MangaDetail() {
       { threshold: 0.5 }
     );
 
-    pageRefs.current.forEach((ref) => {
+    const currentPageRefs = pageRefs.current;
+
+    currentPageRefs.forEach((ref) => {
       if (ref) observer.observe(ref);
     });
 
     return () => {
-      pageRefs.current.forEach((ref) => {
+      currentPageRefs.forEach((ref) => {
         if (ref) observer.unobserve(ref);
       });
     };
