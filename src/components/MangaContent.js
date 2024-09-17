@@ -108,7 +108,7 @@ function MangaDetail() {
     }
   }, [currentPage]);
 
-  if (!manga || !selectedChapter) return <div>Loading...</div>;
+  if (!manga || !selectedChapter) return <div style={{color: 'white'}}><h2>Loading...if manga does not load, it may not be available in English</h2></div>;
 
   return (
     <div className="manga-detail">
