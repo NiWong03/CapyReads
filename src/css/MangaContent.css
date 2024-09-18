@@ -15,12 +15,12 @@
   }
   
   .description-toggle {
-    background-color: #2a0a5e;
+    background-color: #0a2d5e;
     color: #ffffff;
     border: 2px solid #ffffff; /* Uniform border all around */
     padding: 10px 15px;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 15px;
     font-size: 16px;
     
   }
@@ -78,7 +78,7 @@
     font-size: 16px;
     border: 2px solid #ffffff; 
     border-radius: 20px;
-    background-color: #2a0a5e;
+    background-color: #0a2d5e;
     color: #ffffff;
     cursor: pointer;
   }
@@ -113,7 +113,7 @@
 }
 
 .page-navigation button {
-  background-color: #2a0a5e;
+  background-color: #0a2d5e;
   color: white;
   border: 2px solid #ffffff; 
   padding: 5px 10px;
@@ -124,8 +124,8 @@
 
 .page-navigation button:disabled {
   background-color: white;
-  color: #2a0a5e;
-  border: 2px solid #2a0a5e;
+  color: #0a2d5e;
+  border: 2px solid #0a2d5e;
   cursor: not-allowed;
 }
 
