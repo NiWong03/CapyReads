@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import Card from './Card';
 
@@ -7,14 +7,7 @@ function Search() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  useEffect(() => {
-    const searchQuery = new URLSearchParams(location.search).get('q');
-    if (searchQuery) {
-      searchManga(searchQuery);
-    }
-  }, [location.search]);
-
-  const searchManga = async (query) => {
+  const searchManga = useCallback(async (query) => {
     setLoading(true);
     try {
       const res = await fetch(`https://api.mangadex.org/manga?title=${query}&limit=20`);
@@ -32,7 +25,14 @@ function Search() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);  // Empty dependency array as it doesn't depend on any props or state
+
+  useEffect(() => {
+    const searchQuery = new URLSearchParams(location.search).get('q');
+    if (searchQuery) {
+      searchManga(searchQuery);
+    }
+  }, [location.search, searchManga]);  // Include searchManga in the dependency array
 
   const fetchCovers = async (mangaList) => {
     return Promise.all(mangaList.map(async (manga) => {
