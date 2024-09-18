@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../components/Card';
 import '../css/home.css';
 import '../css/main.css';
+import { Box, Container } from '@mui/material';
+import path3 from '../images/path3.jpeg';
 
 function RecentlyAdded() {
   const [recentManga, setRecentManga] = useState([]);
@@ -41,11 +43,43 @@ function RecentlyAdded() {
   if (error) return <div className="manga-description" style={{color: 'red'}}>{error}</div>;
 
   return (
-    <div className="manga-rows">
-      {recentManga.map(manga => (
-        <Card key={manga.id} manga={manga} />
-      ))}
-    </div>
+    <Box
+      sx={{
+        position: 'relative',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        color: 'white',
+        padding: 4,
+        backgroundImage: `url(${path3})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 0,
+        },
+      }}
+    >
+      <Container maxWidth="lg" sx={{ 
+        position: 'relative', 
+        zIndex: 1,
+      }}>
+        <div className="manga-rows">
+          {recentManga.map(manga => (
+            <Card key={manga.id} manga={manga} />
+          ))}
+        </div>
+      </Container>
+    </Box>
   );
 }
 

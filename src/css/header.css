@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px;
-    background-color: #1a0940; /* Slightly lighter purple for header background */
+    background-color: rgba(13, 20, 33, 0.9); /* Dark blue with slight transparency */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   
@@ -12,24 +12,25 @@
        -moz-appearance: none;
             appearance: none;
     background: none;
-    border: 4px solid #3a1b6e ; /* Restored black border */
+    border: 2px solid #2a3f5f;
     outline: none;
     display: block;
     width: 100%;
     max-width: 400px;
     padding: 16px 16px;
     border-radius: 999px;
-    background-color: #EEE;
-    transition: 0.4s;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    color: #ffffff;
   }
   
   .search-box input::placeholder {
-    color: #888;
+    color: #a0a0a0;
   }
   .search-box input:focus, .search-box input:valid {
-    background-color: #3a1b6e ;
-    color: #FFF;
-    border-color: #FFF;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #4a6491;
+    color: #ffffff;
   }
   
 .home-header {
@@ -37,7 +38,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 16px;
-    background-color: #091840; /* Adjust this color if needed */
+    background-color: rgba(13, 20, 33, 0.9); /* Dark blue with slight transparency */
 }
 
 .home-header .search-box {
@@ -49,6 +50,9 @@ max-width: 800px;
     width: 100%;
     padding: 8px 16px; /* Add some padding to make the input larger */
     font-size: 16px; /* Increase font size for better visibility */
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid #2a3f5f;
+    color: #ffffff;
 }
 
 /* If the search form is causing issues, ensure it doesn't add extra space */
@@ -57,4 +61,77 @@ max-width: 800px;
     display: flex;
     align-items: center;
     width: 100%; /* Take full width of its container */
+}
+
+/* Styles for the navigation menu */
+.nav-menu {
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+    color: #4a6491;
+}
+
+/* Hamburger menu for mobile */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    margin: 2px 0;
+    transition: all 0.3s ease;
+}
+
+/* Media query for responsive design */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: rgba(13, 20, 33, 0.95);
+        padding: 20px;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-menu a {
+        margin: 10px 0;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+/* Logo styles */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Additional styles to ensure text readability */
+.header-text {
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }

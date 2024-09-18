@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import { Box } from '@mui/material';
 import '../css/MangaContent.css';
+import path4 from '../images/path4.webp'; // Adjust this path if necessary
 
 function MangaDetail() {
   const { id } = useParams();
@@ -110,11 +112,40 @@ function MangaDetail() {
     }
   }, [currentPage]);
 
-  if (!manga || !selectedChapter) return <div style={{color: 'white'}}><h2>Loading...if manga does not load, it may not be available in English</h2></div>;
+  if (!manga || !selectedChapter) return (
+    <div style={{
+      color: 'white',
+    }}>
+      <h2>Loading... if manga does not load, it may not be available in English</h2>
+    </div>
+  );
 
   return (
-    <div className="manga-detail">
-      <h1>{manga.attributes.title.en}</h1>
+    <Box
+      sx={{
+        backgroundImage: `url(${path4})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+        minHeight: '100vh',
+        padding: '20px',
+        color: 'white', // Ensuring text is visible on the background
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', // Overlay for better readability
+          zIndex: 0,
+        },
+      }}
+    >
+      <Box sx={{ position: 'relative', zIndex: 1 }}>
+        <h1>{manga.attributes.title.en}</h1>
       
       {manga.attributes.description && (
         <div className="description-container">
@@ -160,6 +191,7 @@ function MangaDetail() {
       
       <div className="page-navigation">
         <button 
+          className="manga-button"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
@@ -175,18 +207,21 @@ function MangaDetail() {
           ref={sliderRef}
         />
         <button 
+          className="manga-button"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === pages.length}
         >
           Next
         </button>
         <button
-        onClick={() => handlePageChange(1)}
+          className="manga-button"
+          onClick={() => handlePageChange(1)}
         >
           Back to Top
         </button>
       </div>
-    </div>
+    </Box>
+    </Box>
   );
 }
 
