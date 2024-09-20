@@ -3,7 +3,7 @@ import Card from '../components/Card';
 import '../css/home.css';
 import '../css/main.css';
 import { Box, Container } from '@mui/material';
-import path3 from '../images/path3.jpeg';
+import path3 from '../images/about.jpg';
 
 function RecentlyAdded() {
   const [recentManga, setRecentManga] = useState([]);

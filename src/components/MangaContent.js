@@ -191,7 +191,6 @@ function MangaDetail() {
       
       <div className="page-navigation">
         <button 
-          className="manga-button"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
@@ -207,14 +206,12 @@ function MangaDetail() {
           ref={sliderRef}
         />
         <button 
-          className="manga-button"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === pages.length}
         >
           Next
         </button>
         <button
-          className="manga-button"
           onClick={() => handlePageChange(1)}
         >
           Back to Top

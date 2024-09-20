@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, Box, Grid, InputBase, Container } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText, Box, Grid, InputBase, Container, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import '../css/header.css';
+import logo from '../images/logo.png'; // Import the logo image
 
 // includes navbar, search bar, and page we're on
 
@@ -47,8 +48,23 @@ function Header() {
           href={item.text === 'Github' ? item.link : undefined}
           target={item.text === 'Github' ? '_blank' : undefined}
           rel={item.text === 'Github' ? 'noopener noreferrer' : undefined}
+          sx={{
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.1)', // Slight highlight on hover
+            },
+          }}
         >
-          <ListItemText primary={item.text} />
+          <ListItemText 
+            primary={item.text} 
+            primaryTypographyProps={{
+              sx: { 
+                fontFamily: 'Roboto, sans-serif',
+                color: 'white', // Explicitly set text color to white
+                fontSize: '1rem', // Adjust font size as needed
+                fontWeight: 500, // Medium weight for better readability
+              }
+            }}
+          />
         </ListItem>
       ))}
     </List>
@@ -72,21 +88,43 @@ function Header() {
       backgroundColor: 'rgba(19, 30, 49, 0.9)', // Dark blue with slight transparency
       boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
     }}>
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Grid container alignItems="center" spacing={2}>
-            <Grid item>
+          <Grid container alignItems="center" justifyContent="space-between">
+            <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center' }}>
               <IconButton
                 edge="start"
                 color="inherit"
                 aria-label="menu"
                 onClick={toggleDrawer(true)}
-                sx={{ padding: '8px' }}
+                sx={{ mr: 2 }}
               >
-                <MenuIcon sx={{ fontSize: '24px' }} />
+                <MenuIcon />
               </IconButton>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <img 
+                  src={logo} 
+                  alt="Logo" 
+                  style={{ 
+                    height: '40px',
+                    marginRight: '5px',
+                    objectFit: 'contain'
+                  }} 
+                />
+                <Typography 
+                  variant="h6"
+                  component="div" 
+                  sx={{ 
+                    display: { xs: 'none', sm: 'block' },
+                    fontWeight: 'bold',
+                    letterSpacing: '1px'
+                  }}
+                >
+                  MangaReact
+                </Typography>
+              </Box>
             </Grid>
-            <Grid item xs>
+            <Grid item xs={6}>
               <Box 
                 component="form" 
                 onSubmit={handleSearch} 
@@ -96,15 +134,16 @@ function Header() {
                   backgroundColor: 'white', 
                   borderRadius: '20px',
                   width: '100%',
-                  maxWidth: '600px',
+                  maxWidth: '580px', // Reduced from 600px to 580px
                   margin: '0 auto',
                   overflow: 'hidden',
                   transition: 'background-color 0.3s, border 0.3s',
                   border: '2px solid transparent',
                   '&:focus-within': {
-                    backgroundColor: '#3a1b6e',
+                    backgroundColor: '#0a2d5e',
                     border: '2px solid white',
                   },
+                  height: '36px', // Reduced height
                 }}
               >
                 <InputBase
@@ -116,9 +155,10 @@ function Header() {
                     flex: 1,
                     '& .MuiInputBase-input': {
                       color: 'black',
-                      padding: '8px 8px 8px 0',
+                      padding: '4px 8px 4px 0', // Reduced vertical padding
                       transition: 'color 0.3s',
                       width: '100%',
+                      fontSize: '0.9rem', // Slightly smaller font size
                       '&::placeholder': {
                         color: 'black',
                         opacity: 0.7,
@@ -136,31 +176,51 @@ function Header() {
                 <IconButton 
                   type="submit" 
                   sx={{ 
-                    p: '10px', 
+                    p: '6px', // Reduced padding
                     color: 'black',
                     transition: 'color 0.3s',
                     '&:hover': {
                       backgroundColor: 'transparent',
                     },
-                    '.Mui-focused &': {
+                    '.MuiInputBase-root.Mui-focused + &': {
                       color: 'white',
                     },
                   }} 
                   aria-label="search"
                 >
-                  <SearchIcon />
+                  <SearchIcon fontSize="small" /> {/* Use a smaller icon */}
                 </IconButton>
               </Box>
             </Grid>
-            <Grid item>
+            <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
               <Box component={Link} to="/" sx={{ textDecoration: 'none', color: 'inherit' }}>
-                <div className="home-text">{getHeaderText()}</div>
+                <Typography 
+                  variant="h6" 
+                  component="div" 
+                  sx={{ 
+                    fontWeight: 'normal',
+                    letterSpacing: '1px'
+                  }}
+                >
+                  {getHeaderText()}
+                </Typography>
               </Box>
             </Grid>
           </Grid>
         </Toolbar>
       </Container>
-      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+      <Drawer 
+        anchor="left" 
+        open={drawerOpen} 
+        onClose={toggleDrawer(false)}
+        PaperProps={{
+          sx: {
+            width: 250, // Increased width
+            backgroundColor: 'rgba(19, 30, 49, 0.9)', // Match AppBar background
+            color: 'white', // Set text color to white
+          }
+        }}
+      >
         {list()}
       </Drawer>
     </AppBar>
