@@ -106,6 +106,7 @@ body::before {
   width: 100%; /* Ensure the title takes full width of the card */
   overflow: hidden;
   font-size: 0.9rem; /* Slightly smaller font size */
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .manga-card:hover h3 {
@@ -148,5 +149,7 @@ body::before {
 h1, h2, p {
   color: #ffffff;
   text-shadow: 0 0 10px rgba(0,0,0,0.5);
+  font-family: Arial, Helvetica, sans-serif
+
 }
 
