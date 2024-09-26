@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
 import '../css/MangaContent.css';
-import path4 from '../images/path4.webp'; // Adjust this path if necessary
+import path4 from '../images/about.jpg'; // Adjust this path if necessary
 
 function MangaDetail() {
   const { id } = useParams();

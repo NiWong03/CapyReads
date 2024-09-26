@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Container, Box, Grid } from '@mui/material';
-import { keyframes } from '@mui/system';
+import { keyframes } from '@mui/material';
 import pathh2 from '../images/about.jpg';
 import logo from '../images/logo.png';
 
