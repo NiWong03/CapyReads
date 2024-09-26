@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
-import { Container, Box} from '@mui/material';
+import { Container, Box, Grid } from '@mui/material'; // Import Grid from Material-UI
 import { keyframes } from '@mui/material';
 import '../css/home.css';
 import '../css/main.css'
@@ -25,7 +25,6 @@ const rotate = keyframes`
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 `;
-
 
 function Home() {
   const [search, SetSearch] = useState("");
@@ -79,7 +78,6 @@ function Home() {
       }
     }));
   };
-
 
   return (
     <Box
@@ -263,20 +261,22 @@ function Home() {
           position: 'relative', 
           zIndex: 1,
         }}>
-        <div className="manga-rows" style={{ zIndex: 2 }}>
-        {mangaList.map((manga) => (
-          <Card 
-            key={manga.id} 
-            manga={manga}
-            style={{
-              transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
-              zIndex: 3,
-            }}
-          />
-        ))}
-      </div>
-      </Container>
+        <Grid container spacing={2} justifyContent="center"> {/* Center the grid items */}
+          {mangaList.map((manga) => (
+            <Grid item xs={6} sm={4} md={2.4} key={manga.id}> {/* Adjust item sizes for responsiveness */}
+              <Card 
+                manga={manga}
+                style={{
+                  transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+                  zIndex: 3,
+                }}
+              />
+            </Grid>
+          ))}
+        </Grid>
+        </Container>
     </Box>
   );
 }
+
 export default Home;

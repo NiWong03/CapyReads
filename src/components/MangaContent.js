@@ -123,7 +123,7 @@ function MangaDetail() {
           fontWeight: 'normal', // Unbolded
           fontSize: { xs: '1.2rem', sm: '1rem' }, // Smaller font size on mobile
           marginTop: '20px', // Move text down by 20px
-          marginLeft: '12px'
+          marginLeft: 'px'
         }}
       >
         Loading... if manga does not load, it may not be available in English

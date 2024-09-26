@@ -32,10 +32,10 @@ function Header() {
 
   const menuItems = [
     { text: 'Home', link: '/' },
-    { text: 'Github', link: 'https://github.com/NiWong03/MangadexReact' },
-    { text: 'About', link: '/about' },
     { text: 'Recently Added', link: '/recently-added' },
-    { text: 'My Favorites', link: '/favorites' }
+    { text: 'My Favorites', link: '/favorites' },
+    { text: 'About', link: '/about' },
+    { text: 'Github', link: 'https://github.com/NiWong03/MangadexReact' }
   ];
   
   const list = () => (

@@ -247,7 +247,7 @@ function RecentlyAdded() {
       }}>
         <Grid container spacing={2} justifyContent="center"> {/* Center the grid items */}
           {recentManga.map(manga => (
-            <Grid item xs={6} sm={4} md={3} key={manga.id}> {/* Adjust item sizes for responsiveness */}
+            <Grid item xs={6} sm={4} md={2.4} key={manga.id}> {/* Adjust item sizes for responsiveness */}
               <Card manga={manga} />
             </Grid>
           ))}
