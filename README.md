@@ -1,4 +1,4 @@
-# MangaReact
+# MangaReact ![MangaReact Logo](./public/logo.png)
 
 ## Welcome to MangaReact!
 
