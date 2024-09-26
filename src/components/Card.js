@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Wombat from '../images/Wombat.jpg';
 import '../css/main.css';  // Import the main.css styles
 
@@ -42,15 +43,13 @@ function Card({ manga }) {
           }}
         >
           <h3 style={{ margin: 0 }}>{manga.attributes.title.en}</h3>
-          <FavoriteIcon
-            onClick={toggleFavorite}
-            style={{
-              cursor: 'pointer',
-              color: isFavorited ? 'white' : 'gray',
-              fontSize: '24px',
-              marginLeft: '10px',
-            }}
-          />
+          <span onClick={toggleFavorite} style={{ cursor: 'pointer', marginLeft: '10px' }}> {/* Added marginLeft here */}
+            {isFavorited ? (
+              <FavoriteIcon sx={{ color: 'red' }} />
+            ) : (
+              <FavoriteBorderIcon sx={{ color: 'gray' }} />
+            )}
+          </span>
         </div>
       </Link>
     </div>

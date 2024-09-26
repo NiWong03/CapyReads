@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography} from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import '../css/MangaContent.css';
 import path4 from '../images/about.jpg'; // Adjust this path if necessary
 
@@ -14,6 +16,7 @@ function MangaDetail() {
   const [showDescription, setShowDescription] = useState(false);
   const sliderRef = useRef(null);
   const pageRefs = useRef([]);
+  const [isFavorited, setIsFavorited] = useState(false);
 
   const fetchMangaDetails = useCallback(async () => {
     try {
@@ -112,6 +115,12 @@ function MangaDetail() {
     }
   }, [currentPage]);
 
+  // Toggle favorite status
+  const toggleFavorite = (e) => {
+    e.preventDefault(); // Prevent default action
+    setIsFavorited(!isFavorited); // Toggle favorite state
+  };
+
   if (!manga || !selectedChapter) return (
     <div style={{
       color: 'white',
@@ -156,7 +165,16 @@ function MangaDetail() {
       }}
     >
       <Box sx={{ position: 'relative', zIndex: 1 }}>
-        <h1>{manga.attributes.title.en}</h1>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <h1>{manga.attributes.title.en}</h1>
+          <span onClick={toggleFavorite} style={{ cursor: 'pointer' }}>
+            {isFavorited ? (
+              <FavoriteIcon sx={{ color: 'red' }} />
+            ) : (
+              <FavoriteBorderIcon sx={{ color: 'gray' }} />
+            )}
+          </span>
+        </div>
       
       {manga.attributes.description && (
         <div className="description-container">
