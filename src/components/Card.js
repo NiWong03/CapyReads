@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Wombat from '../images/Wombat.jpg';
+import { FavoritesContext } from '../context/FavoritesContext'; // Correct the path to FavoritesContext
 import '../css/main.css';  // Import the main.css styles
 
 function Card({ manga }) {
-  const [isFavorited, setIsFavorited] = useState(false);
+  const { favorites, toggleFavorite } = useContext(FavoritesContext); // Access context
 
-  const toggleFavorite = (e) => {
+  const isFavorited = favorites.includes(manga.id); // Determine if the manga is favorited
+
+  const handleToggleFavorite = (e) => {
     e.preventDefault(); // Prevents navigating to the manga details page when clicking the favorite icon
-    setIsFavorited(!isFavorited);
+    toggleFavorite(manga); // Toggle favorite state using context function
   };
 
   return (
@@ -43,7 +46,7 @@ function Card({ manga }) {
           }}
         >
           <h3 style={{ margin: 0 }}>{manga.attributes.title.en}</h3>
-          <span onClick={toggleFavorite} style={{ cursor: 'pointer', marginLeft: '10px' }}> {/* Added marginLeft here */}
+          <span onClick={handleToggleFavorite} style={{ cursor: 'pointer', marginLeft: '10px' }}>
             {isFavorited ? (
               <FavoriteIcon sx={{ color: 'red' }} />
             ) : (
