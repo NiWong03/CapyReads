@@ -5,6 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import '../css/header.css';
 import logo from '../images/logo.png'; // Import the logo image
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 // includes navbar, search bar, and page we're on
 
@@ -70,7 +71,20 @@ function Header() {
     </List>
   );
 
-  const getHeaderText = () => {
+  const getHeaderContent = () => {
+    if (location.pathname.includes('/manga/')) {
+      return (
+        <IconButton 
+          onClick={() => navigate(-1)} // Back button functionality
+          sx={{ 
+            color: 'white'
+          }}
+        >
+          <ArrowBackIcon />
+        </IconButton>
+      );
+    }
+
     switch(location.pathname) {
       case '/':
         return 'Home';
@@ -196,9 +210,9 @@ function Header() {
               <Box 
                 sx={{ 
                   display: { xs: 'block', sm: 'flex' }, // Stack on small screens, flex on larger
-                  flexDirection: getHeaderText() === 'Recently Added' ? { xs: 'column', sm: 'row' } : 'row', // Column for 'Recently Added'
+                  flexDirection: getHeaderContent() === 'Recently Added' ? { xs: 'column', sm: 'row' } : 'row', // Column for 'Recently Added'
                   alignItems: 'center',
-                  marginRight: getHeaderText() === 'Recently Added' ? '-10px' : '0' // Move right if text is 'Recently Added'
+                  marginRight: getHeaderContent() === 'Recently Added' ? '-10px' : '0' // Move right if text is 'Recently Added'
                 }}
               >
                 <Typography 
@@ -208,12 +222,12 @@ function Header() {
                     fontWeight: 'normal',
                     letterSpacing: '1px',
                     fontSize: { 
-                      xs: getHeaderText() === 'Recently Added' ? '0.7rem' : '1rem', // Conditional font size for small screens
-                      sm: getHeaderText() === 'Recently Added' ? '1rem' : '1rem'
+                      xs: getHeaderContent() === 'Recently Added' ? '0.7rem' : '1rem', // Conditional font size for small screens
+                      sm: getHeaderContent() === 'Recently Added' ? '1rem' : '1rem'
                     }
                   }} // Added missing closing bracket
                 >
-                  {getHeaderText()}
+                  {getHeaderContent()}
                 </Typography>
               </Box>
             </Grid>
