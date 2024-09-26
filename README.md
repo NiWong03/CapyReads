@@ -1,4 +1,4 @@
-# MangaReact ![MangaReact Logo](./public/logo.png)
+![MangaReact Logo](./public/readme_logo.png)
 
 ## Welcome to MangaReact!
 
@@ -22,14 +22,14 @@ To set up and run the project locally, follow these steps:
    npm install
    ```
 2. **Check the installed Node version:**
-  ```bash
+   ```bash
    npm -v
-  ```
+   ```
 3. **Update dependencies (if needed):**
-  ```bash
+   ```bash
    npm update
-  ```
+   ```
 4. **Start the development server:**
-  ```bash
+   ```bash
    npm start
-  ```
+   ```
