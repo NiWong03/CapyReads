@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Container, Box, Grid } from '@mui/material';
+import { Typography, Container, Box, Grid} from '@mui/material';
 import { keyframes } from '@mui/material';
 import pathh2 from '../images/about.jpg';
 import logo from '../images/logo.png';
@@ -210,11 +210,15 @@ function About() {
         }}
       />
 
-      <Container maxWidth="xl" sx={{ 
-        position: 'relative', 
-        zIndex: 2,
-        marginTop: '5vh',
-      }}>
+        <Container
+          maxWidth="xl"
+          sx={{
+            position: 'relative',
+            zIndex: 2,
+            marginTop: { xs: '22vh', sm: '22vh', md: '10vh', lg: '5vh' }, // Add larger margin for smaller screens
+          }}
+        >
+
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={7} sx={{ 
             paddingLeft: { md: '10%' }, // Add left padding on medium and larger screens
@@ -250,10 +254,7 @@ function About() {
             <Typography variant="body1" paragraph>
               For more information, feature requests, or to contribute to the project, please visit our <a href="https://github.com/NiWong03/MangadexReact" target="_blank" rel="noopener noreferrer" style={{color: '#e0d0ff'}}>GitHub repository</a>.
             </Typography>
-            <Typography variant="body1" paragraph>
-              Fun fact: The theme of this website was inspired by the path scenes in season 4 of Attack on Titan!
-              {' '}<a href="https://youtu.be/O1mtWvW-954?si=7BigzSVhrx4CmH3w" target="_blank" rel="noopener noreferrer" style={{color: '#e0d0ff'}}>Watch here</a>
-            </Typography>
+            
             <Typography variant="body1" paragraph>
               This project was created by <a href="https://www.linkedin.com/in/nicholas-wong-110b2b231/" target="_blank" rel="noopener noreferrer" style={{color: '#e0d0ff'}}>Nicholas Wong</a>{' '}
               and <a href="https://www.linkedin.com/in/debora-choi-759b221a9/" target="_blank" rel="noopener noreferrer" style={{color: '#e0d0ff'}}>Debora Choi</a>.
@@ -285,26 +286,34 @@ function About() {
       <Box
         sx={{
           position: 'absolute',
-          top: '20%',
-          right: '12%',
+          top: { xs: '8%', sm: '5%', md: '20%' },
+          right: { xs: '37%', sm: '37%', md: '14%' },
           transform: 'translateY(-50%)',
-          width: '200px',
-          height: '200px',
+          width: { 
+            xs: '80px', 
+            sm: '150px', 
+            md: '200px', 
+            lg: '200px',
+            xl: '250px'
+          },
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           animation: `${float} 6s ease-in-out infinite`,
-          zIndex: 3, // Ensure it's on top of other elements
+          zIndex: 3,
+          '@media (min-width: 1000px)': { 
+            width: '150px',
+            height: '150px',
+          }
         }}
       >
         <img 
           src={logo} 
           alt="MangaReact Logo" 
           style={{ 
-            maxWidth: '200%',
-            height: 'auto',
+            width: '100%', // Use 100% to ensure it fits the Box
+            height: '100%', // Use 100% to make it fill the Box
             objectFit: 'contain',
-            transform: 'scale(2.25)', // This will make the image 1.5 times larger
           }} 
         />
       </Box>
