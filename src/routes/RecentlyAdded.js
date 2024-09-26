@@ -26,7 +26,6 @@ const rotate = keyframes`
   100% { transform: rotate(360deg); }
 `;
 
-
 function RecentlyAdded() {
   const [recentManga, setRecentManga] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -34,7 +34,8 @@ function Header() {
     { text: 'Home', link: '/' },
     { text: 'Github', link: 'https://github.com/NiWong03/MangadexReact' },
     { text: 'About', link: '/about' },
-    { text: 'Recently Added', link: '/recently-added' }
+    { text: 'Recently Added', link: '/recently-added' },
+    { text: 'My Favorites', link: '/favorites' }
   ];
   
   const list = () => (
