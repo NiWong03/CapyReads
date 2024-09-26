@@ -193,14 +193,25 @@ function Header() {
               </Box>
             </Grid>
             <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Box component={Link} to="/" sx={{ textDecoration: 'none', color: 'inherit' }}>
+              <Box 
+                sx={{ 
+                  display: { xs: 'block', sm: 'flex' }, // Stack on small screens, flex on larger
+                  flexDirection: getHeaderText() === 'Recently Added' ? { xs: 'column', sm: 'row' } : 'row', // Column for 'Recently Added'
+                  alignItems: 'center',
+                  marginRight: getHeaderText() === 'Recently Added' ? '-10px' : '0' // Move right if text is 'Recently Added'
+                }}
+              >
                 <Typography 
-                  variant="h6" 
+                  variant="h6"
                   component="div" 
                   sx={{ 
                     fontWeight: 'normal',
-                    letterSpacing: '1px'
-                  }}
+                    letterSpacing: '1px',
+                    fontSize: { 
+                      xs: getHeaderText() === 'Recently Added' ? '0.7rem' : '1rem', // Conditional font size for small screens
+                      sm: getHeaderText() === 'Recently Added' ? '1rem' : '1rem'
+                    }
+                  }} // Added missing closing bracket
                 >
                   {getHeaderText()}
                 </Typography>

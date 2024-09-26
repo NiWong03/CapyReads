@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../components/Card';
 import '../css/home.css';
 import '../css/main.css';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import { keyframes } from '@mui/material';
 import path3 from '../images/about.jpg';
 
@@ -246,11 +246,13 @@ function RecentlyAdded() {
         position: 'relative', 
         zIndex: 1,
       }}>
-        <div className="manga-rows">
+        <Grid container spacing={2} justifyContent="center"> {/* Center the grid items */}
           {recentManga.map(manga => (
-            <Card key={manga.id} manga={manga} />
+            <Grid item xs={6} sm={4} md={3} key={manga.id}> {/* Adjust item sizes for responsiveness */}
+              <Card manga={manga} />
+            </Grid>
           ))}
-        </div>
+        </Grid>
       </Container>
     </Box>
   );

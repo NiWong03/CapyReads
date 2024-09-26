@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, Typography} from '@mui/material';
 import '../css/MangaContent.css';
 import path4 from '../images/about.jpg'; // Adjust this path if necessary
 
@@ -115,8 +115,19 @@ function MangaDetail() {
   if (!manga || !selectedChapter) return (
     <div style={{
       color: 'white',
+      padding: '0 16px', // Add padding to the sides
     }}>
-      <h2>Loading... if manga does not load, it may not be available in English</h2>
+      <Typography 
+        variant="h6" 
+        sx={{ 
+          fontWeight: 'normal', // Unbolded
+          fontSize: { xs: '1.2rem', sm: '1rem' }, // Smaller font size on mobile
+          marginTop: '20px', // Move text down by 20px
+          marginLeft: '12px'
+        }}
+      >
+        Loading... if manga does not load, it may not be available in English
+      </Typography>
     </div>
   );
 
