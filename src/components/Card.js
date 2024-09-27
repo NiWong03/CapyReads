@@ -27,7 +27,7 @@ function Card({ manga }) {
           alt={`Cover for ${manga.attributes.title.en}`}
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src = Wombat;
+            e.target.src = Wombat; // Fallback image
           }}
           style={{
             display: 'block',
@@ -48,7 +48,7 @@ function Card({ manga }) {
           <h3 style={{ margin: 0 }}>{manga.attributes.title.en}</h3>
           <span onClick={handleToggleFavorite} style={{ cursor: 'pointer', marginLeft: '10px' }}>
             {isFavorited ? (
-              <FavoriteIcon sx={{ color: 'red' }} />
+              <FavoriteIcon sx={{ color: 'red' }} /> // Show red if favorited
             ) : (
               <FavoriteBorderIcon sx={{ color: 'gray' }} />
             )}

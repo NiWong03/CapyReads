@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Typography} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { FavoritesContext } from '../context/FavoritesContext'; // Import the context
 import '../css/MangaContent.css';
 import path4 from '../images/about.jpg'; // Adjust this path if necessary
 
 function MangaDetail() {
   const { id } = useParams();
+  const { favorites, toggleFavorite } = useContext(FavoritesContext); // Access context
   const [manga, setManga] = useState(null);
   const [chapters, setChapters] = useState([]);
   const [selectedChapter, setSelectedChapter] = useState(null);
@@ -16,7 +18,6 @@ function MangaDetail() {
   const [showDescription, setShowDescription] = useState(false);
   const sliderRef = useRef(null);
   const pageRefs = useRef([]);
-  const [isFavorited, setIsFavorited] = useState(false);
 
   const fetchMangaDetails = useCallback(async () => {
     try {
@@ -115,12 +116,6 @@ function MangaDetail() {
     }
   }, [currentPage]);
 
-  // Toggle favorite status
-  const toggleFavorite = (e) => {
-    e.preventDefault(); // Prevent default action
-    setIsFavorited(!isFavorited); // Toggle favorite state
-  };
-
   if (!manga || !selectedChapter) return (
     <div style={{
       color: 'white',
@@ -139,6 +134,8 @@ function MangaDetail() {
       </Typography>
     </div>
   );
+
+  const isFavorited = favorites.includes(manga.id); // Check if the manga is favorited
 
   return (
     <Box

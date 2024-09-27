@@ -11,6 +11,9 @@ const Favorites = () => {
       const mangaDetails = await Promise.all(
         favorites.map(async (mangaId) => {
           const response = await fetch(`https://api.mangadex.org/manga/${mangaId}`);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch manga with ID: ${mangaId}`);
+          }
           const data = await response.json();
           return data.data; // Return the manga data
         })
