@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FavoritesContext } from '../context/FavoritesContext'; // Correct the path to FavoritesContext
 import Card from '../components/Card'; // Correct the path to Card
-import { keyframes } from '@mui/material';
-import { Container, Box, Grid } from '@mui/material';
+import { Container, Box, Grid } from '@mui/material'; // Import Container and Grid from Material-UI
 import pathh2 from '../images/about.jpg';
+import { keyframes } from '@mui/material';
 
 // Define animations for geometric shapes
 const floatShape1 = keyframes`
@@ -31,24 +31,35 @@ const Favorites = () => {
 
   useEffect(() => {
     const fetchMangaDetails = async () => {
-      const mangaDetails = await Promise.all(
-        favorites.map(async (mangaId) => {
-          const response = await fetch(`https://api.mangadex.org/manga/${mangaId}`);
-          if (!response.ok) {
-            throw new Error(`Failed to fetch manga with ID: ${mangaId}`);
-          }
-          const data = await response.json();
-          return data.data; // Return the manga data
-        })
-      );
+      console.log("Favorites IDs:", favorites); // Log the favorites array
+      const validFavorites = favorites.filter(mangaId => mangaId); // Filter out null or undefined IDs
 
-      const mangaWithCovers = await fetchCovers(mangaDetails);
-      setMangaList(mangaWithCovers);
+      if (validFavorites.length === 0) {
+        console.log("No valid favorites to fetch.");
+        return; // Exit if there are no valid favorites
+      }
+
+      try {
+        const mangaDetails = await Promise.all(
+          validFavorites.map(async (mangaId) => {
+            console.log("Fetching manga with ID:", mangaId); // Log the manga ID
+            const response = await fetch(`https://api.mangadex.org/manga/${mangaId}`);
+            if (!response.ok) {
+              throw new Error(`Failed to fetch manga with ID: ${mangaId}`);
+            }
+            const data = await response.json();
+            return data.data; // Return the manga data
+          })
+        );
+
+        const mangaWithCovers = await fetchCovers(mangaDetails);
+        setMangaList(mangaWithCovers);
+      } catch (error) {
+        console.error("Error fetching manga details:", error);
+      }
     };
 
-    if (favorites.length > 0) {
-      fetchMangaDetails();
-    }
+    fetchMangaDetails();
   }, [favorites]);
 
   const fetchCovers = async (mangaList) => {
@@ -249,21 +260,21 @@ const Favorites = () => {
         }}
         />
 
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Grid container spacing={2} justifyContent="center"> {/* Center the grid items */}
-          {mangaList.map((manga) => (
-            <Grid item xs={6} sm={4} md={2.4} key={manga.id}> {/* Adjust item sizes for responsiveness */}
-              <Card 
-                manga={manga}
-                style={{
-                  transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
-                  zIndex: 3,
-                }}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
+    <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, marginTop: '20px' }}> {/* Added marginTop here */}
+      <Grid container spacing={2} justifyContent="center"> {/* Center the grid items */}
+        {mangaList.map((manga) => (
+          <Grid item xs={6} sm={4} md={2.4} key={manga.id}> {/* Adjust item sizes for responsiveness */}
+            <Card 
+              manga={manga}
+              style={{
+                transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+                zIndex: 3,
+              }}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
     </Box>
   );
 }

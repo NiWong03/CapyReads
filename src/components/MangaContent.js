@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Star from '@mui/icons-material/Star'; // Import Star icon
+import StarBorder from '@mui/icons-material/StarBorder'; // Import StarBorder icon
 import { FavoritesContext } from '../context/FavoritesContext'; // Import the context
 import '../css/MangaContent.css';
 import path4 from '../images/about.jpg'; // Adjust this path if necessary
@@ -164,11 +164,11 @@ function MangaDetail() {
       <Box sx={{ position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h1>{manga.attributes.title.en}</h1>
-          <span onClick={toggleFavorite} style={{ cursor: 'pointer' }}>
+          <span onClick={() => toggleFavorite(manga)} style={{ cursor: 'pointer' }}>
             {isFavorited ? (
-              <FavoriteIcon sx={{ color: 'red' }} />
+              <Star sx={{ color: 'yellow' }} />
             ) : (
-              <FavoriteBorderIcon sx={{ color: 'gray' }} />
+              <StarBorder sx={{ color: 'gray' }} />
             )}
           </span>
         </div>

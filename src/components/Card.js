@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Star from '@mui/icons-material/Star'; // Import Star icon
+import StarBorder from '@mui/icons-material/StarBorder'; // Import StarBorder icon
 import Wombat from '../images/Wombat.jpg';
 import { FavoritesContext } from '../context/FavoritesContext'; // Correct the path to FavoritesContext
 import '../css/main.css';  // Import the main.css styles
@@ -48,9 +48,9 @@ function Card({ manga }) {
           <h3 style={{ margin: 0 }}>{manga.attributes.title.en}</h3>
           <span onClick={handleToggleFavorite} style={{ cursor: 'pointer', marginLeft: '10px' }}>
             {isFavorited ? (
-              <FavoriteIcon sx={{ color: 'red' }} /> // Show red if favorited
+              <Star sx={{ color: 'yellow' }} />
             ) : (
-              <FavoriteBorderIcon sx={{ color: 'gray' }} />
+              <StarBorder sx={{ color: 'gray' }} />
             )}
           </span>
         </div>
