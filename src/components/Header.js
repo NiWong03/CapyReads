@@ -93,6 +93,8 @@ function Header() {
         return 'About';
       case '/recently-added':
         return 'Recently Added';
+      case '/favorites':
+        return 'Favorites';
       default:
         return 'Home';
     }
