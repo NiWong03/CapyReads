@@ -86,6 +86,11 @@ function Header() {
       );
     }
 
+    // Check if the current path is the search page
+    if (location.pathname === '/search') {
+      return ''; // Return an empty string to remove the Home text
+    }
+
     switch(location.pathname) {
       case '/':
         return 'Home';
