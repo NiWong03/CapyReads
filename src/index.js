@@ -9,7 +9,7 @@ import About from './routes/About';
 import Search from './components/Search';
 import RecentlyAdded from './routes/RecentlyAdded';
 import './css/main.css';
-import Favorites from './routes/Favorites'; // Import the Favorites component
+import Favorites from './routes/Favorites'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
