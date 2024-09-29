@@ -34,7 +34,7 @@ To set up and run the project locally, follow these steps:
    npm start
    ```
 
-Screenshots:
+##Screenshots:
 
 ![ScreenShot Home](./src/images/ss_home.png)
 ![ScreenShot Home](./src/images/ss_recentlyadded.png)
