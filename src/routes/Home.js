@@ -36,7 +36,7 @@ function Home() {
 
   const fetchTopManga = async () => {
     try {
-      const res = await fetch(`https://api.mangadex.org/manga?order[rating]=desc&limit=20`);
+      const res = await fetch(`http://18.118.30.61:3001/manga?order[rating]=desc&limit=20`);
       const resData = await res.json();
       const mangaWithCovers = await fetchCovers(resData.data);
       setMangaList(mangaWithCovers);
@@ -66,7 +66,7 @@ function Home() {
   const fetchCovers = async (mangaList) => {
     return Promise.all(mangaList.map(async (manga) => {
       try {
-        const coverRes = await fetch(`https://api.mangadex.org/cover?manga[]=${manga.id}&limit=1`);
+        const coverRes = await fetch(`http://18.118.30.61:3001/cover?manga[]=${manga.id}&limit=1`);
         const coverData = await coverRes.json();
         if (coverData.data && coverData.data.length > 0) {
           manga.coverFileName = coverData.data[0].attributes.fileName;
