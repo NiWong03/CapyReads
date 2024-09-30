@@ -33,3 +33,9 @@ To set up and run the project locally, follow these steps:
    ```bash
    npm start
    ```
+
+## Screenshots:
+
+![ScreenShot Home](./src/images/ss_home.png)
+![ScreenShot Home](./src/images/ss_recentlyadded.png)
+![ScreenShot Home](./src/images/ss_about.png)
