@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FavoritesContext } from '../context/FavoritesContext'; // Correct the path to FavoritesContext
 import Card from '../components/Card'; // Correct the path to Card
-import { Container, Box, Grid } from '@mui/material'; // Import Container and Grid from Material-UI
-import pathh2 from '../images/about.jpg';
 import { keyframes } from '@mui/material';
+import { Container, Box, Grid } from '@mui/material';
+import pathh2 from '../images/about.jpg';
 
 // Define animations for geometric shapes
 const floatShape1 = keyframes`
@@ -31,52 +31,23 @@ const Favorites = () => {
 
   useEffect(() => {
     const fetchMangaDetails = async () => {
-      console.log("Favorites IDs:", favorites); // Log the favorites array
-      const validFavorites = favorites.filter(mangaId => mangaId); // Filter out null or undefined IDs
-
-      if (validFavorites.length === 0) {
-        console.log("No valid favorites to fetch.");
-        return; // Exit if there are no valid favorites
-      }
-
-      try {
-        const mangaDetails = await Promise.all(
-          validFavorites.map(async (mangaId) => {
-            console.log("Fetching manga with ID:", mangaId); // Log the manga ID
-            const response = await fetch(`https://api.mangadex.org/manga/${mangaId}`);
-            if (!response.ok) {
-              throw new Error(`Failed to fetch manga with ID: ${mangaId}`);
-            }
-            const data = await response.json();
-            return data.data; // Return the manga data
-          })
-        );
-
-        const mangaWithCovers = await fetchCovers(mangaDetails);
-        setMangaList(mangaWithCovers);
-      } catch (error) {
-        console.error("Error fetching manga details:", error);
-      }
+      const mangaDetails = await Promise.all(
+        favorites.map(async (mangaId) => {
+          const response = await fetch(`https://api.mangadex.org/manga/${mangaId}`);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch manga with ID: ${mangaId}`);
+          }
+          const data = await response.json();
+          return data.data; // Return the manga data
+        })
+      );
+      setMangaList(mangaDetails);
     };
 
-    fetchMangaDetails();
+    if (favorites.length > 0) {
+      fetchMangaDetails();
+    }
   }, [favorites]);
-
-  const fetchCovers = async (mangaList) => {
-    return Promise.all(mangaList.map(async (manga) => {
-      try {
-        const coverRes = await fetch(`https://api.mangadex.org/cover?manga[]=${manga.id}&limit=1`);
-        const coverData = await coverRes.json();
-        if (coverData.data && coverData.data.length > 0) {
-          manga.coverFileName = coverData.data[0].attributes.fileName;
-        }
-        return manga;
-      } catch (error) {
-        console.error(`Error fetching cover for manga ${manga.id}:`, error);
-        return manga;
-      }
-    }));
-  };
 
   if (mangaList.length === 0) {
     return <p style={{ marginLeft: '10px' }}>No favorites added yet.</p>; // Added marginLeft here
@@ -259,24 +230,26 @@ const Favorites = () => {
           zIndex: 1,
         }}
         />
-
-    <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, marginTop: '20px' }}> {/* Added marginTop here */}
-      <Grid container spacing={2} justifyContent="center"> {/* Center the grid items */}
-        {mangaList.map((manga) => (
-          <Grid item xs={6} sm={4} md={2.4} key={manga.id}> {/* Adjust item sizes for responsiveness */}
-            <Card 
-              manga={manga}
-              style={{
-                transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
-                zIndex: 3,
-              }}
-            />
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+        <Container maxWidth="lg" sx={{ 
+          position: 'relative', 
+          zIndex: 1,
+        }}>
+            <Grid container spacing={2} justifyContent="center"> 
+                {mangaList.map((manga) => (
+                <Grid item xs={6} sm={4} md={2.4} key={manga.id}>
+                    <Card 
+                    manga={manga}
+                    style={{
+                        transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+                        zIndex: 3,
+                    }}
+                    />
+                </Grid>
+                ))}
+            </Grid>
+        </Container>
     </Box>
   );
-}
+};
 
 export default Favorites;

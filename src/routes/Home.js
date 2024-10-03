@@ -5,6 +5,7 @@ import { keyframes } from '@mui/material';
 import '../css/home.css';
 import '../css/main.css'
 import pathh2 from '../images/about.jpg';
+import axios from 'axios';
 
 // Define animations for geometric shapes
 const floatShape1 = keyframes`
@@ -34,42 +35,62 @@ function Home() {
     fetchTopManga();
   }, []);
 
+  const axiosInstance = axios.create({
+    baseURL: 'https://api.mangadex.org',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  });
+  
   const fetchTopManga = async () => {
     try {
-      const res = await fetch(`https://api.mangadex.org/manga?order[rating]=desc&limit=20`);
-      const resData = await res.json();
-      const mangaWithCovers = await fetchCovers(resData.data);
+      const res = await axiosInstance.get('/manga', {
+        params: {
+          'order[rating]': 'desc',
+          limit: 20
+        }
+      });
+      const mangaWithCovers = await fetchCovers(res.data.data);
       setMangaList(mangaWithCovers);
     } catch (error) {
       console.error("Error fetching top manga:", error);
     }
   };
-
+  
   const searchManga = async (query) => {
     try {
-      const res = await fetch(`https://api.mangadex.org/manga?title=${query}&limit=20`);
-      const resData = await res.json();
+      const res = await axiosInstance.get('/manga', {
+        params: {
+          title: query,
+          limit: 20
+        }
+      });
       
-      if (resData.data.length === 0) {
+      if (res.data.data.length === 0) {
         console.log('No results found');
         setMangaList([]);
         return;
       }
-
-      const mangaWithCovers = await fetchCovers(resData.data);
+  
+      const mangaWithCovers = await fetchCovers(res.data.data);
       setMangaList(mangaWithCovers);
     } catch (error) {
       console.error("Error searching manga:", error);
     }
   };
-
+  
   const fetchCovers = async (mangaList) => {
     return Promise.all(mangaList.map(async (manga) => {
       try {
-        const coverRes = await fetch(`https://api.mangadex.org/cover?manga[]=${manga.id}&limit=1`);
-        const coverData = await coverRes.json();
-        if (coverData.data && coverData.data.length > 0) {
-          manga.coverFileName = coverData.data[0].attributes.fileName;
+        const res = await axiosInstance.get('/cover', {
+          params: {
+            manga: [manga.id],
+            limit: 1
+          }
+        });
+        if (res.data.data && res.data.data.length > 0) {
+          manga.coverFileName = res.data.data[0].attributes.fileName;
         }
         return manga;
       } catch (error) {
@@ -78,7 +99,6 @@ function Home() {
       }
     }));
   };
-
   return (
     <Box
       sx={{

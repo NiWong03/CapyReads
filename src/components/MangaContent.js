@@ -6,6 +6,7 @@ import StarBorder from '@mui/icons-material/StarBorder'; // Import StarBorder ic
 import { FavoritesContext } from '../context/FavoritesContext'; // Import the context
 import '../css/MangaContent.css';
 import path4 from '../images/about.jpg'; // Adjust this path if necessary
+import axios from 'axios';
 
 function MangaDetail() {
   const { id } = useParams();
@@ -19,17 +20,39 @@ function MangaDetail() {
   const sliderRef = useRef(null);
   const pageRefs = useRef([]);
 
+  const axiosInstance = axios.create({
+    baseURL: 'https://api.mangadex.org',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  });
+  
   const fetchMangaDetails = useCallback(async () => {
     try {
-      const mangaRes = await fetch(`https://api.mangadex.org/manga/${id}`);
-      const mangaData = await mangaRes.json();
+      // Fetch manga details
+      const mangaRes = await axiosInstance.get(`/manga/${id}`, {
+        headers: {
+          'Authorization': 'Bearer YOUR_ACCESS_TOKEN'  // Example if authentication is needed
+        }
+      });
+      const mangaData = mangaRes.data;
       setManga(mangaData.data);
-
+  
       // Fetch all chapters
-      const chaptersRes = await fetch(`https://api.mangadex.org/manga/${id}/feed?translatedLanguage[]=en&order[chapter]=asc&limit=500`);
-      const chaptersData = await chaptersRes.json();
+      const chaptersRes = await axiosInstance.get(`/manga/${id}/feed`, {
+        headers: {
+          'Authorization': 'Bearer YOUR_ACCESS_TOKEN'  // Example if authentication is needed
+        },
+        params: {
+          translatedLanguage: ['en'],
+          'order[chapter]': 'asc',
+          limit: 500
+        }
+      });
+      const chaptersData = chaptersRes.data;
       setChapters(chaptersData.data);
-
+  
       // Set the first chapter as selected
       if (chaptersData.data.length > 0) {
         setSelectedChapter(chaptersData.data[0]);
@@ -38,25 +61,30 @@ function MangaDetail() {
       console.error("Error fetching manga details:", error);
     }
   }, [id]);
-
+  
   useEffect(() => {
     fetchMangaDetails();
   }, [fetchMangaDetails]);
-
+  
   useEffect(() => {
     if (selectedChapter) {
       fetchChapterPages(selectedChapter.id);
     }
   }, [selectedChapter]);
-
+  
   const fetchChapterPages = async (chapterId) => {
     try {
-      const pagesRes = await fetch(`https://api.mangadex.org/at-home/server/${chapterId}`);
-      const pagesData = await pagesRes.json();
+      const pagesRes = await axiosInstance.get(`/at-home/server/${chapterId}`, {
+        headers: {
+          'Authorization': 'Bearer YOUR_ACCESS_TOKEN'  // Example if authentication is needed
+        }
+      });
+      const pagesData = pagesRes.data;
       const baseUrl = pagesData.baseUrl;
       const chapterHash = pagesData.chapter.hash;
       const pageFilenames = pagesData.chapter.data;
-      
+  
+      // Map the page URLs
       const pageUrls = pageFilenames.map(filename => 
         `${baseUrl}/data/${chapterHash}/${filename}`
       );
