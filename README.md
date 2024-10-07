@@ -4,6 +4,12 @@
 
 MangaReact is a responsive web application designed to enhance your manga reading experience. Our app leverages the power of React and the extensive MangaDex API to bring you a seamless, user-friendly interface for discovering and enjoying your favorite manga.
 
+## Demo Video
+
+[![Watch the demo video](https://img.youtube.com/vi/iaZjLGuwVN4/0.jpg)](https://www.youtube.com/watch?v=iaZjLGuwVN4&feature=youtu.be)
+
+Click the image above to watch the demo video on YouTube.
+
 ## Key Features:
 - **Extensive Manga Library**: Access thousands of titles from various genres.
 - **User-Friendly Interface**: Easy navigation and intuitive design for a smooth reading experience.
