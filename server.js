@@ -25,10 +25,12 @@ app.get('/api', (req, res) => {
 app.use('/api', createProxyMiddleware({
   target: 'https://api.mangadex.org',
   changeOrigin: true,
-  pathRewrite: { '^/api': '' },
-  onProxyRes: (proxyRes, req, res) => {
-    // Ensure valid CORS response headers
-    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+  pathRewrite: (path, req) => {
+    // Avoid rewriting for the /api route itself
+    if (path === '/api') {
+      return '/api'; // Keep the api path
+    }
+    return path.replace(/^\/api/, ''); // For other paths, rewrite /api
   },
 }));
 
