@@ -1,6 +1,7 @@
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const cors = require('cors');
+const http = require('http'); // Import the http module
 
 const app = express();
 
@@ -20,7 +21,6 @@ app.use('/api', createProxyMiddleware({
   },
 }));
 
-
 // Add a route for the root URL
 app.get('/', (req, res) => {
   res.send('Welcome to the MangaDex Proxy Server!');
@@ -29,9 +29,13 @@ app.get('/', (req, res) => {
 // Start the server on port 3000 (or change to port 80 if needed)
 const PORT = 3000;
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is running on http://0.0.0.0:${PORT}`);
-});
+// Create the HTTP server
+const server = http.createServer(app);
 
 // Set the keep-alive timeout
 server.keepAliveTimeout = 60000; // 60 seconds
+
+// Start listening
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${PORT}`);
+});
