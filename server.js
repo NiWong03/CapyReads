@@ -1,12 +1,16 @@
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ limit: '2mb', extended: true }));
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Logging middleware to track requests
 app.use((req, res, next) => {
@@ -25,12 +29,10 @@ app.get('/api', (req, res) => {
 app.use('/api', createProxyMiddleware({
   target: 'https://api.mangadex.org',
   changeOrigin: true,
-  pathRewrite: (path, req) => {
-    // Avoid rewriting for the /api route itself
-    if (path === '/api') {
-      return '/api'; // Keep the api path
-    }
-    return path.replace(/^\/api/, ''); // For other paths, rewrite /api
+  pathRewrite: { '^/api': '' },
+  onProxyRes: (proxyRes, req, res) => {
+    // Ensure valid CORS response headers
+    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
   },
 }));
 
