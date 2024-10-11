@@ -9,8 +9,8 @@ app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ limit: '2mb', extended: true }));
 
-// Serve static files from the public directory
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from the build directory
+app.use(express.static(path.join(__dirname, 'build')));
 
 // Logging middleware to track requests
 app.use((req, res, next) => {
@@ -35,6 +35,11 @@ app.use('/api', createProxyMiddleware({
     proxyRes.headers['Access-Control-Allow-Origin'] = '*';
   },
 }));
+
+// Serve the React app for any route other than /api
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // Add a route for the root URL
 app.get('/', (req, res) => {
