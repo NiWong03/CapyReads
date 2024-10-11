@@ -14,11 +14,22 @@ app.use((req, res, next) => {
   next();
 });
 
+// Custom route for /api to avoid redirection
+app.get('/api', (req, res) => {
+  res.json({
+    message: "Welcome to the MangaDex API Proxy. Use /api/manga or other endpoints to access the MangaDex API.",
+  });
+});
+
 // Proxy middleware for MangaDex API
 app.use('/api', createProxyMiddleware({
   target: 'https://api.mangadex.org',
   changeOrigin: true,
   pathRewrite: { '^/api': '' },
+  onProxyRes: (proxyRes, req, res) => {
+    // Ensure valid CORS response headers
+    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+  },
 }));
 
 // Add a route for the root URL
