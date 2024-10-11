@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 });
 
 // Start the server on port 3000 (or change to port 80 if needed)
-const PORT = 3000; // Change to 80 if you want to run on port 80
+const PORT = 80; // Change to 80 if you want to run on port 80
 const server = app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

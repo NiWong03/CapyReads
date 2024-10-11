@@ -38,7 +38,7 @@ function Home() {
 
   // Set up Axios instance for API calls
   const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000/api', // Replace with your EC2 public IP
+    baseURL: 'https://18.118.30.61/api', // Replace with your EC2 public IP
     headers: {
       'Content-Type': 'application/json',
       //'Accept': 'application/json',
