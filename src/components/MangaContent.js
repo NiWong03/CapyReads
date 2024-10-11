@@ -1,98 +1,82 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
-import Star from '@mui/icons-material/Star'; // Import Star icon
-import StarBorder from '@mui/icons-material/StarBorder'; // Import StarBorder icon
-import { FavoritesContext } from '../context/FavoritesContext'; // Import the context
+import Star from '@mui/icons-material/Star'; 
+import StarBorder from '@mui/icons-material/StarBorder'; 
+import { FavoritesContext } from '../context/FavoritesContext'; 
 import '../css/MangaContent.css';
-import path4 from '../images/about.jpg'; // Adjust this path if necessary
+import path4 from '../images/about.jpg'; 
 import axios from 'axios';
 
 function MangaDetail() {
   const { id } = useParams();
-  const { favorites, toggleFavorite } = useContext(FavoritesContext); // Access context
+  const { favorites, toggleFavorite } = useContext(FavoritesContext);
+  
   const [manga, setManga] = useState(null);
   const [chapters, setChapters] = useState([]);
   const [selectedChapter, setSelectedChapter] = useState(null);
   const [pages, setPages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [showDescription, setShowDescription] = useState(false);
+  
   const sliderRef = useRef(null);
   const pageRefs = useRef([]);
-
+  
   const axiosInstance = axios.create({
-    baseURL: 'https://api.mangadex.org',
+    baseURL: 'http://localhost:3000/api',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
+      //'Accept': 'application/json',
+    },
   });
-  
+
   const fetchMangaDetails = useCallback(async () => {
     try {
-      // Fetch manga details
-      const mangaRes = await axiosInstance.get(`/manga/${id}`, {
-        headers: {
-          'Authorization': 'Bearer YOUR_ACCESS_TOKEN'  // Example if authentication is needed
-        }
-      });
-      const mangaData = mangaRes.data;
-      setManga(mangaData.data);
+      const mangaRes = await axiosInstance.get(`/manga/${id}`);
+      setManga(mangaRes.data.data);
   
-      // Fetch all chapters
       const chaptersRes = await axiosInstance.get(`/manga/${id}/feed`, {
-        headers: {
-          'Authorization': 'Bearer YOUR_ACCESS_TOKEN'  // Example if authentication is needed
-        },
         params: {
-          translatedLanguage: ['en'],
+          translatedLanguage: ['en'], // Keep it necessary
           'order[chapter]': 'asc',
-          limit: 500
-        }
+          limit: 500,
+        },
       });
-      const chaptersData = chaptersRes.data;
-      setChapters(chaptersData.data);
+      setChapters(chaptersRes.data.data);
   
-      // Set the first chapter as selected
-      if (chaptersData.data.length > 0) {
-        setSelectedChapter(chaptersData.data[0]);
+      if (chaptersRes.data.data.length > 0) {
+        setSelectedChapter(chaptersRes.data.data[0]);
       }
     } catch (error) {
       console.error("Error fetching manga details:", error);
     }
   }, [id]);
   
-  useEffect(() => {
-    fetchMangaDetails();
-  }, [fetchMangaDetails]);
-  
-  useEffect(() => {
-    if (selectedChapter) {
-      fetchChapterPages(selectedChapter.id);
-    }
-  }, [selectedChapter]);
-  
+
   const fetchChapterPages = async (chapterId) => {
     try {
-      const pagesRes = await axiosInstance.get(`/at-home/server/${chapterId}`, {
-        headers: {
-          'Authorization': 'Bearer YOUR_ACCESS_TOKEN'  // Example if authentication is needed
-        }
-      });
-      const pagesData = pagesRes.data;
-      const baseUrl = pagesData.baseUrl;
-      const chapterHash = pagesData.chapter.hash;
-      const pageFilenames = pagesData.chapter.data;
-  
-      // Map the page URLs
+      const pagesRes = await axiosInstance.get(`/at-home/server/${chapterId}`);
+      const { baseUrl, chapter } = pagesRes.data;
+      const pageFilenames = chapter.data;
+
       const pageUrls = pageFilenames.map(filename => 
-        `${baseUrl}/data/${chapterHash}/${filename}`
+        `${baseUrl}/data/${chapter.hash}/${filename}`
       );
       setPages(pageUrls);
     } catch (error) {
       console.error("Error fetching chapter pages:", error);
     }
   };
+
+  useEffect(() => {
+    fetchMangaDetails();
+  }, [fetchMangaDetails]);
+
+  useEffect(() => {
+    if (selectedChapter) {
+      fetchChapterPages(selectedChapter.id);
+    }
+  }, [selectedChapter]);
 
   const handleChapterChange = (e) => {
     const chapter = chapters.find(c => c.id === e.target.value);
@@ -144,26 +128,24 @@ function MangaDetail() {
     }
   }, [currentPage]);
 
-  if (!manga || !selectedChapter) return (
-    <div style={{
-      color: 'white',
-      padding: '0 16px', // Add padding to the sides
-    }}>
-      <Typography 
-        variant="h6" 
-        sx={{ 
-          fontWeight: 'normal', // Unbolded
-          fontSize: { xs: '1.2rem', sm: '1rem' }, // Smaller font size on mobile
-          marginTop: '20px', // Move text down by 20px
-          marginLeft: 'px'
-        }}
-      >
-        Loading... if manga does not load, it may not be available in English
-      </Typography>
-    </div>
-  );
+  if (!manga || !selectedChapter) {
+    return (
+      <div style={{ color: 'white', padding: '0 16px' }}>
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            fontWeight: 'normal', 
+            fontSize: { xs: '1.2rem', sm: '1rem' }, 
+            marginTop: '20px' 
+          }}
+        >
+          Loading... if manga does not load, it may not be available in English
+        </Typography>
+      </div>
+    );
+  }
 
-  const isFavorited = favorites.includes(manga.id); // Check if the manga is favorited
+  const isFavorited = favorites.includes(manga.id);
 
   return (
     <Box
@@ -175,7 +157,7 @@ function MangaDetail() {
         backgroundAttachment: 'fixed',
         minHeight: '100vh',
         padding: '20px',
-        color: 'white', // Ensuring text is visible on the background
+        color: 'white',
         position: 'relative',
         '&::before': {
           content: '""',
@@ -184,7 +166,7 @@ function MangaDetail() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)', // Overlay for better readability
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
           zIndex: 0,
         },
       }}
@@ -193,85 +175,80 @@ function MangaDetail() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h1>{manga.attributes.title.en}</h1>
           <span onClick={() => toggleFavorite(manga)} style={{ cursor: 'pointer' }}>
-            {isFavorited ? (
-              <Star sx={{ color: 'yellow' }} />
-            ) : (
-              <StarBorder sx={{ color: 'gray' }} />
-            )}
+            {isFavorited ? <Star sx={{ color: 'yellow' }} /> : <StarBorder sx={{ color: 'gray' }} />}
           </span>
         </div>
       
-      {manga.attributes.description && (
-        <div className="description-container">
-          <button 
-            className="description-toggle"
-            onClick={() => setShowDescription(!showDescription)}
-          >
-            {showDescription ? 'Hide Description' : 'Show Description'}
-          </button>
-          {showDescription && <p className="manga-description">{manga.attributes.description.en}</p>}
-        </div>
-      )}
-      
-      <div className="chapter-select">
-        <select value={selectedChapter.id} onChange={handleChapterChange}>
-          {chapters.map((chapter) => (
-            <option key={chapter.id} value={chapter.id}>
-              Chapter {chapter.attributes.chapter}: {chapter.attributes.title}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <h2>Chapter {selectedChapter.attributes.chapter}: {selectedChapter.attributes.title}</h2>
-      <div className="chapter-pages">
-        {pages.map((pageUrl, index) => (
-          <div 
-            key={index} 
-            className="page-container"
-            ref={el => pageRefs.current[index] = el}
-          >
-            <img 
-              src={pageUrl}
-              alt={`Page ${index + 1}`}
-              onError={(e) => {
-                console.error(`Failed to load image: ${e.target.src}`);
-                e.target.src = 'path/to/fallback/image.jpg'; // Add a fallback image
-              }}
-            />
+        {manga.attributes.description && (
+          <div className="description-container">
+            <button 
+              className="description-toggle"
+              onClick={() => setShowDescription(!showDescription)}
+            >
+              {showDescription ? 'Hide Description' : 'Show Description'}
+            </button>
+            {showDescription && <p className="manga-description">{manga.attributes.description.en}</p>}
           </div>
-        ))}
-      </div>
+        )}
       
-      <div className="page-navigation">
-        <button 
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>{currentPage} / {pages.length}</span>
-        <input
-          type="range"
-          min="1"
-          max={pages.length}
-          value={currentPage}
-          onChange={handleSliderChange}
-          ref={sliderRef}
-        />
-        <button 
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === pages.length}
-        >
-          Next
-        </button>
-        <button
-          onClick={() => handlePageChange(1)}
-        >
-          Back to Top
-        </button>
-      </div>
-    </Box>
+        <div className="chapter-select">
+          <select value={selectedChapter.id} onChange={handleChapterChange}>
+            {chapters.map((chapter) => (
+              <option key={chapter.id} value={chapter.id}>
+                Chapter {chapter.attributes.chapter}: {chapter.attributes.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <h2>Chapter {selectedChapter.attributes.chapter}: {selectedChapter.attributes.title}</h2>
+        
+        <div className="chapter-pages">
+          {pages.map((pageUrl, index) => (
+            <div 
+              key={index} 
+              className="page-container"
+              ref={el => pageRefs.current[index] = el}
+            >
+              <img 
+                src={pageUrl}
+                alt={`Page ${index + 1}`}
+                onError={(e) => {
+                  console.error(`Failed to load image: ${e.target.src}`);
+                  e.target.src = 'path/to/fallback/image.jpg'; 
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        
+        <div className="page-navigation">
+          <button 
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <span>{currentPage} / {pages.length}</span>
+          <input
+            type="range"
+            min="1"
+            max={pages.length}
+            value={currentPage}
+            onChange={handleSliderChange}
+            ref={sliderRef}
+          />
+          <button 
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === pages.length}
+          >
+            Next
+          </button>
+          <button onClick={() => handlePageChange(1)}>
+            Back to Top
+          </button>
+        </div>
+      </Box>
     </Box>
   );
 }
