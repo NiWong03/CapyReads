@@ -45,21 +45,21 @@ function Home() {
     },
   });
 
-const fetchTopManga = async () => {
-  try {
-    const res = await axiosInstance.get('/manga', {
-      params: {
-        'order[rating]': 'desc',
-        limit: 20,
-      },
-      paramsSerializer: params => qs.stringify(params, { encode: false }), // Disable encoding
-    });
-    const mangaWithCovers = await fetchCovers(res.data.data);
-    setMangaList(mangaWithCovers);
-  } catch (error) {
-    console.error("Error fetching top manga:", error);
-  }
-};
+  const fetchTopManga = async () => {
+    try {
+      const res = await axiosInstance.get('/manga', {
+        params: {
+          'order[rating]': 'desc',
+          limit: 20,
+        },
+      });
+      const mangaWithCovers = await fetchCovers(res.data.data);
+      setMangaList(mangaWithCovers);
+    } catch (error) {
+      console.error("Error fetching top manga:", error);
+    }
+  };
+  
 
   
 
