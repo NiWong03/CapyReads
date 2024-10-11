@@ -11,10 +11,10 @@ app.use(cors());
 app.use(express.json({ limit: '2mb' })); // or more if needed
 app.use(express.urlencoded({ limit: '2mb', extended: true })); // or more if needed
 
-// Proxy middleware for MangaDex API
 app.use('/api', createProxyMiddleware({
   target: 'https://api.mangadex.org',
   changeOrigin: true,
+  pathRewrite: { '^/api': '' }, // Strips '/api' from the path
   onProxyReq: (proxyReq, req, res) => {
     // Optional: Add User-Agent header
     proxyReq.setHeader('User-Agent', 'Your-Custom-User-Agent');
@@ -26,6 +26,7 @@ app.use('/api', createProxyMiddleware({
     proxyRes.headers['Access-Control-Allow-Origin'] = '*';
   },
 }));
+
 
 // Add a route for the root URL
 app.get('/', (req, res) => {
