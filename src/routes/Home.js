@@ -38,28 +38,28 @@ function Home() {
 
   // Set up Axios instance for API calls
   const axiosInstance = axios.create({
-    baseURL: 'https://18.118.30.61/api', // Replace with your EC2 public IP
+    baseURL: 'http://18.118.30.61:3000/api', // Replace with your EC2 public IP
     headers: {
       'Content-Type': 'application/json',
       //'Accept': 'application/json',
     },
   });
 
-  const fetchTopManga = async () => {
-    try {
-      const res = await axiosInstance.get('/manga', {
-        params: {
-          'order[rating]': 'desc',
-          limit: 20,
-        },
-      });
-      const mangaWithCovers = await fetchCovers(res.data.data);
-      setMangaList(mangaWithCovers);
-    } catch (error) {
-      console.error("Error fetching top manga:", error);
-    }
-  };
-  
+const fetchTopManga = async () => {
+  try {
+    const res = await axiosInstance.get('/manga', {
+      params: {
+        'order[rating]': 'desc',
+        limit: 20,
+      },
+      paramsSerializer: params => qs.stringify(params, { encode: false }), // Disable encoding
+    });
+    const mangaWithCovers = await fetchCovers(res.data.data);
+    setMangaList(mangaWithCovers);
+  } catch (error) {
+    console.error("Error fetching top manga:", error);
+  }
+};
 
   
 

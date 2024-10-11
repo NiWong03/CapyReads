@@ -23,7 +23,7 @@ function MangaDetail() {
   const pageRefs = useRef([]);
   
   const axiosInstance = axios.create({
-    baseURL: 'https://18.118.30.61/api',
+    baseURL: 'http://18.118.30.61:3000/api',
     headers: {
       'Content-Type': 'application/json',
       //'Accept': 'application/json',
