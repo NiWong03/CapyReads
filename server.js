@@ -32,6 +32,9 @@ app.get('/', (req, res) => {
   res.send('Welcome to the MangaDex Proxy Server!');
 });
 
+// Define the port to listen on
+const PORT = 3000; // Change to 80 if you want to run on port 80
+
 // Start the server on port 3000 (or change to port 80 if needed)
 const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on http://0.0.0.0:${PORT}`);
