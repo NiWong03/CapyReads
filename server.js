@@ -2,6 +2,7 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const cors = require('cors');
 const path = require('path');
+const axios = require('axios');
 
 const app = express();
 
@@ -56,3 +57,17 @@ const server = app.listen(PORT, '0.0.0.0', () => {
 
 // Set the keep-alive timeout
 server.keepAliveTimeout = 60000; // 60 seconds
+
+app.get('/api/covers/:mangaId/:coverFileName', async (req, res) => {
+    const { mangaId, coverFileName } = req.params;
+    const imageUrl = `https://uploads.mangadex.org/covers/${mangaId}/${coverFileName}`;
+
+    try {
+        const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+        res.set('Content-Type', response.headers['content-type']);
+        res.send(response.data);
+    } catch (error) {
+        console.error(`Error fetching cover: ${error.message}`);
+        res.status(500).send('Error fetching cover image');
+    }
+});
