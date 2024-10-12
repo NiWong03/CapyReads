@@ -65,7 +65,8 @@ const fetchTopManga = async () => {
 
   // Function to fetch manga covers
   const fetchCovers = async (mangaList) => {
-    return Promise.all(mangaList.map(async (manga) => {
+    const results = [];
+    for (const manga of mangaList) {
       try {
         const res = await axiosInstance.get('/cover', {
           params: {
@@ -76,13 +77,17 @@ const fetchTopManga = async () => {
         if (res.data.data && res.data.data.length > 0) {
           manga.coverFileName = res.data.data[0].attributes.fileName; // Assign cover file name
         }
-        return manga; // Return the manga with cover
+        results.push(manga); // Collect results
       } catch (error) {
         console.error(`Error fetching cover for manga ${manga.id}:`, error);
-        return manga; // Return manga even if there's an error fetching the cover
+        results.push(manga); // Return manga even if there's an error fetching the cover
       }
-    }));
+      await delay(5); // Delay for 1 second between requests
+    }
+    return results;
   };
+
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   return (
     <Box
