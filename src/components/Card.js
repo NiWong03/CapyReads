@@ -21,7 +21,7 @@ function Card({ manga }) {
       <Link to={`/manga/${manga.id}`} className="manga-card" style={{ textDecoration: 'none' }}>
         <img 
           src={manga.coverFileName 
-            ? `https://uploads.mangadex.org/covers/${manga.id}/${manga.coverFileName}`
+            ? `http://18.118.30.61:3000/api/covers/${manga.id}/${manga.coverFileName}` // Use the proxy URL
             : Wombat
           }
           alt={`Cover for ${manga.attributes.title.en}`}
