@@ -1,8 +1,8 @@
-![MangaReact Logo](./public/readme_logo.png)
+![CapyReads Logo](./public/readme_logo.png)
 
-## Welcome to MangaReact! 📚
+## Welcome to CapyReads! 📚
 
-MangaReact is a responsive web application designed to enhance your manga reading experience. Our app leverages the power of React and the extensive MangaDex API to bring you a seamless, user-friendly interface for discovering and enjoying your favorite manga.
+CapyReads is a responsive web application designed to enhance your manga reading experience. Our app leverages the power of React and the extensive MangaDex API to bring you a seamless, user-friendly interface for discovering and enjoying your favorite manga.
 
 ## Demo Video 🎥
 
@@ -41,6 +41,6 @@ To set up and run the project locally, follow these steps:
 
 ## Screenshots: 📸
 
-![ScreenShot Home](./src/images/mangareact.gif)
+![ScreenShot Home](./src/images/CapyReads.gif)
 ![ScreenShot Home](./src/images/ss_recentlyadded.png)
 ![ScreenShot Home](./src/images/ss_about.png)

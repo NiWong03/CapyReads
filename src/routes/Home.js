@@ -38,7 +38,7 @@ function Home() {
 
   // Set up Axios instance for API calls
   const axiosInstance = axios.create({
-    baseURL: '/api',
+    baseURL: 'http://localhost:3001/api',
     headers: {
       'Content-Type': 'application/json',
       //'Accept': 'application/json',

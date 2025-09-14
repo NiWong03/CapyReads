@@ -142,7 +142,7 @@ function Header() {
                     letterSpacing: '1px'
                   }}
                 >
-                  MangaReact
+                  CapyReads
                 </Typography>
               </Box>
             </Grid>

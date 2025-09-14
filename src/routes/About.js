@@ -225,10 +225,10 @@ function About() {
             marginLeft: { md: '5%' }, // Move the entire text block to the right
           }}>
             <Typography variant="h3" component="h1" gutterBottom>
-              Welcome to MangaReact!
+              Welcome to CapyReads!
             </Typography>
             <Typography variant="body1" paragraph>
-              MangaReact is a responsive web application designed to enhance your manga reading experience. 
+              CapyReads is a responsive web application designed to enhance your manga reading experience. 
               Our app leverages the power of React and the extensive MangaDex API to bring you a seamless, user-friendly interface for discovering and enjoying your favorite manga.
             </Typography>
             <Typography variant="h5" gutterBottom>
@@ -309,7 +309,7 @@ function About() {
       >
         <img 
           src={logo} 
-          alt="MangaReact Logo" 
+          alt="CapyReads Logo" 
           style={{ 
             width: '100%', // Use 100% to ensure it fits the Box
             height: '100%', // Use 100% to make it fill the Box
